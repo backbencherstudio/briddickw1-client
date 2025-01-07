@@ -4,6 +4,9 @@ import { Helmet } from "react-helmet";
 import Banner from "../Banner/Banner";
 import Features from "../Features/Features";
 import Agents from "../Agents/Agents";
+import About from "../About/About";
+import Partner from "../Partner/Partner";
+import Testimonials from "../Testimonials/Testimonials";
 
 const Home = () => {
   return (
@@ -16,6 +19,9 @@ const Home = () => {
       <Banner />
       <Features />
       <Agents />
+      <About />
+      <Partner />
+      <Testimonials />
     </div>
   );
 };
