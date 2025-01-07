@@ -1,8 +1,5 @@
 import React from "react";
-import footerImage from "../../../assets/image/footer.png";
 import { Link } from "react-router-dom";
-import quickBooks from "../../../assets/image/quickBooks.png";
-import adb from "../../../assets/image/adb.png";
 
 const Footer = () => {
   return (
@@ -188,10 +185,6 @@ const Footer = () => {
                   </defs>
                 </svg>
               </Link>
-              <div className="flex items-start justify-center gap-[30px]">
-                <img src={quickBooks} alt="" />
-                <img src={adb} alt="" />
-              </div>
             </div>
             <div className="w-full lg:w-[64%] flex flex-wrap items-start justify-between gap-[60px]">
               <div className="flex flex-col items-start justify-start gap-[32px]">
