@@ -5,7 +5,7 @@ const Button = ({ buttonText, buttonLink }) => {
   return (
     <Link
       to={buttonLink}
-      className="flex items-center justify-center gap-[10px] px-6 py-[18px] text-white hover:text-[#23298B] bg-[#23298B] hover:bg-white border border-transparent hover:border-[#23298B] transition-colors duration-500 rounded-[8px]"
+      className="flex items-center justify-center gap-[10px] px-6 py-[17px] text-white hover:text-[#23298B] bg-[#23298B] hover:bg-white border border-transparent hover:border-[#23298B] transition-colors duration-500 rounded-[8px]"
     >
       <p className="text-[14px] font-medium leading-[140%]">
         {buttonText}

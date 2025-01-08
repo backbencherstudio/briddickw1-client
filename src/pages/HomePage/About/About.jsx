@@ -41,13 +41,13 @@ const About = () => {
             </div>
             <div className="w-[49%] flex flex-col items-start gap-4">
               <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%]">
-                Why work with JIBRADO?
+                Why work with Jibrado?
               </h2>
               <div className="flex flex-col items-start gap-6">
                 {/* Tab Header */}
-                <div className="flex justify-center bg-[#E9EAF3] rounded-[12px] p-2">
+                <div className="flex justify-center bg-[#E9EAF3] rounded-[12px] p-2 gap-4">
                   <button
-                    className={`px-6 py-3 font-medium flex justify-center items-center gap-[10px] rounded-[8px] ${
+                    className={`px-6 py-3 text-[14px] font-normal flex justify-center items-center gap-[10px] rounded-[8px] ${
                       activeTab === "selling"
                         ? "bg-[#23298B] text-white"
                         : "bg-transparent text-[#23298B]"
@@ -69,7 +69,7 @@ const About = () => {
                     </svg>
                   </button>
                   <button
-                    className={`px-6 py-3 font-medium flex justify-center items-center gap-[10px] rounded-[8px] ${
+                    className={`px-6 py-3 text-[14px] font-normal flex justify-center items-center gap-[10px] rounded-[8px] ${
                       activeTab === "buying"
                         ? "bg-[#23298B] text-white"
                         : "bg-transparent text-[#23298B]"

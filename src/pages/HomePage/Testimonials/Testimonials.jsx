@@ -39,21 +39,21 @@ const Testimonials = () => {
       name: "Kathryn Murphy",
       designation: "New York, NY",
       review:
-        "Using this service was a game-changer for us! The process was smooth, and we quickly found a perfect agent. I highly recommend it to anyone looking to save time and effort.",
+        "Best part was getting commission proposals right away. Very convenient, saves time. I also like seeing a brief video/audio clip, along with the services they offer. This helped me narrow down to a few potential agents I wanted to meet.",
     },
     {
       image: embla3,
       name: "Jacob Jones",
       designation: "Los Angeles, CA",
       review:
-        "We loved the personalized experience and the transparency in commission proposals. The process was hassle-free, and the support team was excellent!",
+        "UpNest was easy to use and helped me find a real estate agent that matched my needs without any headaches or excessive calling. You only receive calls if you select to interview that agent.",
     },
     {
       image: embla4,
       name: "Jane Cooper",
       designation: "Chicago, IL",
       review:
-        "Jibrado's service made it easy to compare agents and services. It gave us confidence in our decision-making process. Highly recommend it!",
+        "Aver all good, at some point there was an important point I considered he was hiding from me. But I decided to continue trusting him once clarified, at the end I consider myself satisfied with Salvador' service.",
     },
     {
       image: embla5,
@@ -144,7 +144,7 @@ const Testimonials = () => {
               <div className="embla__container flex">
                 {emblaSlides.map((slide, index) => (
                   <div
-                    className="embla__slide w-[22%] shrink-0 flex flex-col items-start justify-between  bg-white rounded-[20px] review-slide-shadow p-6 gap-4 me-6"
+                    className="embla__slide w-[26%] shrink-0 flex flex-col items-start justify-between  bg-white rounded-[20px] review-slide-shadow p-6 gap-4 me-6"
                     key={index}
                   >
                     <div className="flex flex-col items-start justify-center gap-2">
@@ -283,7 +283,7 @@ const Testimonials = () => {
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 mt-6">
+            <div className="flex justify-start gap-5 mt-10 ps-[15.6%]">
               <button
                 onClick={scrollPrev}
                 disabled={prevDisabled}

@@ -5,9 +5,11 @@ const Partner = () => {
     <>
       <div className="max-w-[1350px] mx-auto px-[15px] pt-12 sm:pt-16 md:pt-20 lg:pt-[100px]">
         <div className="flex flex-col items-start gap-12">
-          <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%]">
-            All of our partner agents are
-          </h2>
+          <div className="w-full">
+            <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%] text-center">
+              All of our partner agents are
+            </h2>
+          </div>
           <div className="flex flex-wrap">
             <div className="flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8 rounded-ss-[16px]">
               <div className="w-[72px] h-[72px] bg-[#E9EAF3] rounded-full flex items-center justify-center">
