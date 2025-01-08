@@ -1,15 +1,15 @@
 import { useState } from "react";
-import SellMultipleForm from "./SellMultipleForm";
-import BuyMultipleForm from "./BuyMultipleForm";
-import SellAndBuyMultipleForm from "./SellAndBuyMultipleForm";
+import SellMultipleFormWithModul from "./SellMultipleFormWithModul";
+import BuyMultipleFormWithMudal from "./BuyMultipleFormWithModul";
+import SellAndBuyMultipleFormWithModul from "./SellAndBuyMultipleFormWithModul";
 
 const TabsComponent = () => {
   const [tabIndex, setTabIndex] = useState(0); // Track which tab is active
 
   const tabs = [
-    { id: 0, label: "Sell", component: <SellMultipleForm /> },
-    { id: 1, label: "Buy", component: <BuyMultipleForm /> },
-    { id: 2, label: "Sell & Buy", component: <SellAndBuyMultipleForm /> },
+    { id: 0, label: "Sell", component: <SellMultipleFormWithModul /> },
+    { id: 1, label: "Buy", component: <BuyMultipleFormWithMudal /> },
+    { id: 2, label: "Sell & Buy", component: <SellAndBuyMultipleFormWithModul /> },
   ];
 
   return (
