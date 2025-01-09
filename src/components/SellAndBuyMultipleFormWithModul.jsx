@@ -10,6 +10,7 @@ import LeftArrowIcon from "../../public/icons/LeftArrow";
 import MinusIcon from "../../public/icons/MinusIcon";
 import PlusIcon from "../../public/icons/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
+import { LocationStep } from "./LocationStep";
 
 // Progress bar component
 const ProgressBar = ({ currentStep, totalSteps }) => {
@@ -197,31 +198,40 @@ const SellAndBuyMultipleFormWithModul = () => {
 
   const steps = [
     // Step 1: Location Input (outside modal)
+    // {
+    //   content: (
+    //     <div className="lg:w-[1087px] bg-white">
+    //       <div className="flex items-center gap-4 py-4 px-4">
+    //         <div className="w-full">
+    //           <Input
+    //             className="py-7 placeholder:text-xl"
+    //             placeholder="Enter your full address"
+    //             value={formData.yourAddress}
+    //             onChange={(e) => updateFormData("yourAddress", e.target.value)}
+    //           />
+    //         </div>
+    //         <div className="flex justify-end">
+    //           <Button
+    //             className="flex items-center gap-1"
+    //             variant="primary"
+    //             onClick={handleNext}
+    //           >
+    //             Next
+    //             <RightArrowIcon className="w-6 h-6" />
+    //           </Button>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ),
+    // },
     {
       content: (
-        <div className="lg:w-[1087px] bg-white">
-          <div className="flex items-center gap-4 py-4 px-4">
-            <div className="w-full">
-              <Input
-                className="py-7 placeholder:text-xl"
-                placeholder="Enter your full address"
-                value={formData.yourAddress}
-                onChange={(e) => updateFormData("yourAddress", e.target.value)}
-              />
-            </div>
-            <div className="flex justify-end">
-              <Button
-                className="flex items-center gap-1"
-                variant="primary"
-                onClick={handleNext}
-              >
-                Next
-                <RightArrowIcon className="w-6 h-6" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      ),
+        <LocationStep
+          formData={formData}
+          updateFormData={updateFormData}
+          handleNext={handleNext}
+        />
+      )
     },
     // Step 2: Price Range
     {
