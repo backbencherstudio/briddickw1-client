@@ -204,7 +204,7 @@ const SellMultipleFormWithModul = () => {
     // Step 1: Location Input (outside modal)
     {
       content: (
-        <div className="w-[1087px] bg-white">
+        <div className="lg:w-[1087px] bg-white">
           <div className="flex items-center gap-4 py-4 px-4">
             <div className="w-full">
               <Input
@@ -231,14 +231,14 @@ const SellMultipleFormWithModul = () => {
     // Step 2: Price Range
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
-          <div className="flex justify-between items-center mb-4 px-7 mt-24">
+        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col">
+          <div className="lg:flex justify-between items-center mb-4 px-3 lg:px-7 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Roughly, what is your home worth?
             </h2>
           </div>
 
-          <div className="py-8 w-[750px] mx-auto font-bold text-3xl flex-grow">
+          <div className="py-8 lg:w-[750px] mx-auto font-bold text-3xl flex-grow">
             <div className="text-center mb-4">
               <div className="flex justify-center items-center">
                 <div
@@ -306,10 +306,10 @@ const SellMultipleFormWithModul = () => {
       ),
     },
 
-    // Step 4: Agent Question
+    // Step 3: Agent Question
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
           <div className="mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Have you already hired a real estate agent?
@@ -355,13 +355,13 @@ const SellMultipleFormWithModul = () => {
       ),
     },
 
-    // Step 5: Selling Question
+    // Step 4: Selling Question
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] px-3 h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
-            Have you already hired a real estate agent?
+          Are you also looking to sell a home?
             </h2>
             <div className="flex-grow flex mt-10 items-center">
               <div className="flex space-x-4">
@@ -403,10 +403,10 @@ const SellMultipleFormWithModul = () => {
       ),
     },
 
-    // Step 6: Additional Details
+    // Step 5: Additional Details
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
           <div className=" mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Are there any other details you’d like to share?
@@ -442,19 +442,19 @@ const SellMultipleFormWithModul = () => {
         </div>
       ),
     },
-    // Step 7: Contact Details
+    // Step 6: Contact Details
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
           <div className="mb-4 mt-24">
-          <h2 className="font-semibold text-[#0F113A] text-[32px]">
+          <h2 className="font-semibold text-[#0F113A] text-2xl lg:text-[32px]">
             Last step! Now just add a few contact details
             </h2>
           </div>
-          <p className="text-lg text-gray-600">
+          <p className="lg:text-lg text-gray-600">
           This is where RealEstateAgents.com and our agents will contact you to discuss your needs
           </p>
-          <div className="space-y-10 my-10">
+          <div className="space-y-4 lg:space-y-10 my-10">
             <div className="flex items-center gap-5">
               <div className="w-full">
                 <Input
@@ -526,23 +526,23 @@ const SellMultipleFormWithModul = () => {
         </div>
       ),
     },
-    // Step 8: Phone Verification
+    // Step 7: Phone Verification
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
-          <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
+          <div className="mb-4 mt-5 lg:mt-24">
+            <h2 className="text-[#0F113A] text-xl lg:text-3xl font-semibold">
               We’re preparing to connect you to at least 3 agents. Please verify
               the following information to get connected sooner:
             </h2>
           </div>
-          <div className="w-1/2 flex space-x-3 mt-7 mb-32">
+          <div className="lg:w-1/2 flex space-x-3 mt-7 mb-5 lg:mb-20">
             <div className="w-24">
               <select className="w-full border rounded-md p-2 bg-[#ECEFF3]">
                 <option>USA</option>
               </select>
             </div>
-            <div className="w-full">
+            <div className="lg:w-full">
               <Input
                 placeholder="Cell Number"
                 type="tel"
@@ -558,7 +558,7 @@ const SellMultipleFormWithModul = () => {
             </div>
           </div>
 
-          <div className="flex justify-between mx-20 my-10">
+          <div className="flex justify-between lg:mx-20 mb-5 lg:my-10">
             <Button
               className="flex items-center gap-1 text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
               variant="secondary"
@@ -575,7 +575,7 @@ const SellMultipleFormWithModul = () => {
               Text Confirmation Code
             </Button>
           </div>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 lg:text-lg mt-10 lg:mt-0">
             By clicking &quot;Text Confirmation Code&quot;, I am providing my
             esign and express written consent to allow ReferralExchange and our
             affiliated Participating Agents, or parties calling on their behalf,
@@ -592,7 +592,7 @@ const SellMultipleFormWithModul = () => {
     // Step 8: OTP Verification
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-4 lg:px-0">
           <div className=" mb-4 mt-24">
             <div className="w-full">
               <img
@@ -673,25 +673,25 @@ const SellMultipleFormWithModul = () => {
     // Step 8: Thank you
     {
       content: (
-        <div className="w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] lg:h-[738px] mx-auto flex flex-col">
           <div className=" mb-4 mt-10">
             <div>
               <img
                 src={thankYou}
                 alt="Thank you image"
-                className="mx-auto w-64 my-4"
+                className="mx-auto w-36 lg:w-64 my-4"
               />
               <div className="text-center">
-                <h2 className="text-4xl font-semibold text-[#0F113A] mb-4">
+                <h2 className="text-2xl lg:text-4xl font-semibold text-[#0F113A] mb-4">
                   Thank you for submitting!
                 </h2>
-                <p className="my-4 text-gray-700">
+                <p className="my-4 text-gray-700 text-sm lg:text-base">
                   Thank you for filling out our form and congratulations on
                   taking the next step of connecting with a top real estate
                   professional in your area. Agents will be contacting you soon.
                 </p>
 
-                <p className="my-4 text-gray-700">
+                <p className="my-4 text-gray-700 text-sm lg:text-base">
                   Please check your inbox in the next few minutes as we will
                   also send you a list of 3 local agents that meet the following
                   criteria:
@@ -700,7 +700,7 @@ const SellMultipleFormWithModul = () => {
             </div>
 
             {/* Centered Unordered List */}
-            <ul className="list-none mx-auto mt-6 space-y-4 text-gray-700">
+            <ul className="list-none mx-auto mt-6 lg:space-y-4 text-gray-700">
               <li className="flex items-center justify-center">
                 <span className="text-green-600 mr-3 text-xl">✔️</span>
                 <span className="text-base font-medium">
@@ -727,7 +727,7 @@ const SellMultipleFormWithModul = () => {
               </li>
             </ul>
 
-            <p className="text-gray-700 mt-8">
+            <p className="text-gray-700 mt-8 px-3">
               If you need anything in the meantime, don&apos;t hesitate to reach
               out to{" "}
               <a
