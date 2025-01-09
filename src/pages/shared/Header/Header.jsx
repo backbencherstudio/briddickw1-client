@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../../assets/image/logo.svg";
 
 const Header = () => {
@@ -10,7 +11,7 @@ const Header = () => {
         <div className="max-w-[1350px] px-[15px] mx-auto">
           <div className="navbar py-[14px]">
             <div className="navbar-start">
-              <a className="">
+              <a href="/" className="">
                 <img src={logo} alt="" />
               </a>
             </div>
@@ -79,9 +80,9 @@ const Header = () => {
               </ul>
             </div>
             <div className="navbar-end">
-              <button className="text-white text-[16px] font-['Plus Jakarta Sans'] bg-[#23298B] rounded-[8px] py-[10px] px-3 hidden sm:block">
+              <a href="/" className="text-white text-[16px] font-['Plus Jakarta Sans'] bg-[#23298B] hover:bg-white hover:text-[#23298B] rounded-[8px] py-[10px] px-3 transition-colors duration-300 hidden sm:block">
                 Get Started
-              </button>
+              </a>
               <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
