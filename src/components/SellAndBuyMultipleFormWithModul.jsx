@@ -11,12 +11,28 @@ import MinusIcon from "../../public/icons/MinusIcon";
 import PlusIcon from "../../public/icons/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
 
+// Progress bar component
+const ProgressBar = ({ currentStep, totalSteps }) => {
+  const progress = (currentStep / (totalSteps - 1)) * 100;
+  
+  return (
+    <div className="w-full h-2 bg-gray-200 fixed top-0 left-0 z-90">
+      <div 
+        className="h-full bg-orange-500 transition-all duration-300 ease-in-out"
+        style={{ width: `${progress}%` }}
+      />
+    </div>
+  );
+};
+
 const INITIAL_FORM_DATA = {
   //   addressToSell: "",
+  yourAddress: "",
+  homePriceRange: [500],
   cityToBuy: "",
-  priceRange: [500],
+  lookingPriceRange: [500],
   hasAgent: false,
-  lookingToSell: false,
+  // lookingToSell: false,
   additionalDetails: "",
   firstName: "",
   lastName: "",
@@ -187,10 +203,10 @@ const SellAndBuyMultipleFormWithModul = () => {
           <div className="flex items-center gap-4 py-4 px-4">
             <div className="w-full">
               <Input
-                className="py-7"
-                placeholder="Enter your city name"
-                value={formData.cityToBuy}
-                onChange={(e) => updateFormData("cityToBuy", e.target.value)}
+                className="py-7 placeholder:text-xl"
+                placeholder="Enter your full address"
+                value={formData.yourAddress}
+                onChange={(e) => updateFormData("yourAddress", e.target.value)}
               />
             </div>
             <div className="flex justify-end">
@@ -211,8 +227,8 @@ const SellAndBuyMultipleFormWithModul = () => {
     {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
-          <div className="flex justify-between items-center mb-4 px-20 mt-24">
-            <h2 className="font-semibold text-[#0F113A] text-2xl my-4">
+          <div className="flex justify-between items-center mb-4 px-7 mt-24">
+            <h2 className="font-semibold text-[#0F113A] text-[32px] my-4">
             Roughly, what is your home worth?
             </h2>
           </div>
@@ -223,23 +239,23 @@ const SellAndBuyMultipleFormWithModul = () => {
                 <div
                   className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
                   onClick={() => {
-                    const newPrice = Math.max(100, formData.priceRange[0] - 50); // Decrease price by 50k
-                    updateFormData("priceRange", [newPrice]);
+                    const newPrice = Math.max(100, formData.homePriceRange[0] - 50); // Decrease price by 50k
+                    updateFormData("homePriceRange", [newPrice]);
                   }}
                 >
                   <MinusIcon className="w-6 h-6 text-current" />
                 </div>
-                <p className="mx-6">
-                  ${formData.priceRange[0]}k - ${formData.priceRange[0] + 50}K
+                <p className="mx-6 text-[#13174C]">
+                  ${formData.homePriceRange[0]}k - ${formData.homePriceRange[0] + 50}K
                 </p>
                 <div
                   className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
                   onClick={() => {
                     const newPrice = Math.min(
                       5000,
-                      formData.priceRange[0] + 50
+                      formData.homePriceRange[0] + 50
                     ); // Increase price by 50k
-                    updateFormData("priceRange", [newPrice]);
+                    updateFormData("homePriceRange", [newPrice]);
                   }}
                 >
                   <PlusIcon className="w-6 h-6 text-current" />
@@ -252,8 +268,8 @@ const SellAndBuyMultipleFormWithModul = () => {
               max={5000}
               min={100}
               step={50}
-              value={formData.priceRange}
-              onValueChange={(value) => updateFormData("priceRange", value)}
+              value={formData.homePriceRange}
+              onValueChange={(value) => updateFormData("homePriceRange", value)}
               className="bg-[#E9EAF3] my-6"
             />
             <div className="flex justify-between mt-2">
@@ -290,21 +306,21 @@ const SellAndBuyMultipleFormWithModul = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+            <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Where are you looking to buy?
             </h2>
 
             {/* added search */}
-            <div className="flex items-center gap-4 py-4 px-4">
+            <div className="flex items-center gap-4 py-4">
             <div className="w-full">
               <Input
-                className="py-7"
+                className="py-7 placeholder:text-xl"
                 placeholder="Enter your city name"
                 value={formData.cityToBuy}
                 onChange={(e) => updateFormData("cityToBuy", e.target.value)}
               />
             </div>
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
               <Button
                 className="flex items-center gap-1"
                 variant="primary"
@@ -313,7 +329,7 @@ const SellAndBuyMultipleFormWithModul = () => {
                 Next
                 <RightArrowIcon className="w-6 h-6" />
               </Button>
-            </div>
+            </div> */}
           </div>
           </div>
 
@@ -340,12 +356,12 @@ const SellAndBuyMultipleFormWithModul = () => {
       ),
     },
 
-     // Step 2: Price Range looking buy
+     // Step 5: Price Range looking buy
      {
         content: (
           <div className="w-[815px] h-[738px] mx-auto flex flex-col">
-            <div className="flex justify-between items-center mb-4 px-20 mt-24">
-              <h2 className="font-semibold text-[#0F113A] text-2xl my-4">
+            <div className="flex justify-between items-center mb-4 px-7 mt-24">
+            <h2 className="font-semibold text-[#0F113A] text-[32px]">
               What price range are you looking to buy?
               </h2>
             </div>
@@ -356,23 +372,23 @@ const SellAndBuyMultipleFormWithModul = () => {
                   <div
                     className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
                     onClick={() => {
-                      const newPrice = Math.max(100, formData.priceRange[0] - 50); // Decrease price by 50k
-                      updateFormData("priceRange", [newPrice]);
+                      const newPrice = Math.max(100, formData.lookingPriceRange[0] - 50); // Decrease price by 50k
+                      updateFormData("lookingPriceRange", [newPrice]);
                     }}
                   >
                     <MinusIcon className="w-6 h-6 text-current" />
                   </div>
                   <p className="mx-6">
-                    ${formData.priceRange[0]}k - ${formData.priceRange[0] + 50}K
+                    ${formData.lookingPriceRange[0]}k - ${formData.lookingPriceRange[0] + 50}K
                   </p>
                   <div
                     className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
                     onClick={() => {
                       const newPrice = Math.min(
                         5000,
-                        formData.priceRange[0] + 50
+                        formData.lookingPriceRange[0] + 50
                       ); // Increase price by 50k
-                      updateFormData("priceRange", [newPrice]);
+                      updateFormData("lookingPriceRange", [newPrice]);
                     }}
                   >
                     <PlusIcon className="w-6 h-6 text-current" />
@@ -385,8 +401,8 @@ const SellAndBuyMultipleFormWithModul = () => {
                 max={5000}
                 min={100}
                 step={50}
-                value={formData.priceRange}
-                onValueChange={(value) => updateFormData("priceRange", value)}
+                value={formData.lookingPriceRange}
+                onValueChange={(value) => updateFormData("lookingPriceRange", value)}
                 className="bg-[#E9EAF3] my-6"
               />
               <div className="flex justify-between mt-2">
@@ -418,35 +434,36 @@ const SellAndBuyMultipleFormWithModul = () => {
         ),
       },
 
-    // Step 5: Selling Question
+    // Step 4: Agent Question
     {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
-            Have you already hired a real estate Agent?
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
+            Have you already hired a real estate agent?
             </h2>
             <div className="flex-grow flex mt-10 items-center">
               <div className="flex space-x-4">
                 <Button
-                  variant={formData.lookingToSell ? "primary" : "secondary"}
-                  onClick={() => updateFormData("lookingToSell", true)}
+                  variant={formData.hasAgent ? "primary" : "secondary"}
+                  onClick={() => updateFormData("hasAgent", true)}
                 >
                   Yes
                 </Button>
                 <Button
-                  variant={!formData.lookingToSell ? "primary" : "secondary"}
-                  onClick={() => updateFormData("lookingToSell", false)}
+                  variant={!formData.hasAgent ? "primary" : "secondary"}
+                  onClick={() => updateFormData("hasAgent", false)}
                 >
                   No
                 </Button>
               </div>
             </div>
           </div>
+
           {/* Footer Section for Buttons */}
           <div className="flex justify-between px-20 py-8 mt-auto">
             <Button
-              className="flex items-center gap-1  text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
+              className="flex items-center gap-1 text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
               variant="secondary"
               onClick={handleBack}
             >
@@ -471,12 +488,12 @@ const SellAndBuyMultipleFormWithModul = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className=" mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Are there any other details you’d like to share?
             </h2>
           </div>
           <textarea
-            className="w-full h-32 p-2 border rounded-md"
+            className="w-full h-32 p-2 border rounded-md placeholder:text-lg"
             placeholder="Enter any details about your real estate needs..."
             value={formData.additionalDetails}
             onChange={(e) =>
@@ -510,11 +527,11 @@ const SellAndBuyMultipleFormWithModul = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Last step! Now just add a few contact details
             </h2>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-md text-gray-600">
             This is where RealEstateAgents.com and our agents will contact you
             to discuss your needs
           </p>
@@ -575,6 +592,18 @@ const SellAndBuyMultipleFormWithModul = () => {
             binding arbitration and consent to receive electronic
             communications.
           </p>
+
+          {/* Footer Section for Buttons */}
+          <div className="flex justify-between mt-10">
+            <Button
+              className="flex items-center gap-1  text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
+              variant="secondary"
+              onClick={handleBack}
+            >
+              <LeftArrowIcon className="w-6 h-6" />
+              Back
+            </Button>
+          </div>
         </div>
       ),
     },
@@ -734,7 +763,7 @@ const SellAndBuyMultipleFormWithModul = () => {
                 className="mx-auto w-64 my-4"
               />
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-[#0F113A] mb-4">
+                <h2 className="text-4xl font-semibold text-[#0F113A] mb-4">
                   Thank you for submitting!
                 </h2>
                 <p className="my-4 text-gray-700">
@@ -797,7 +826,7 @@ const SellAndBuyMultipleFormWithModul = () => {
   ];
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center">
+    <div className="bg-gray-100 flex flex-col items-center justify-center">
       {currentStep === 0 ? (
         <div className="max-w-[1087px] rounded-b-xl bg-white">
           {steps[0].content}
@@ -805,7 +834,13 @@ const SellAndBuyMultipleFormWithModul = () => {
       ) : (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogContent className="max-w-[1087px] p-0">
-            {steps[currentStep].content}
+            {/* Progress bar moved inside DialogContent at the top */}
+            <div className="sticky top-0 z-10">
+              <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
+            </div>
+            <div className="relative">
+              {steps[currentStep].content}
+            </div>
           </DialogContent>
         </Dialog>
       )}

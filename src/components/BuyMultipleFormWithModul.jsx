@@ -11,6 +11,20 @@ import MinusIcon from "../../public/icons/MinusIcon";
 import PlusIcon from "../../public/icons/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
 
+// Progress bar component
+const ProgressBar = ({ currentStep, totalSteps }) => {
+  const progress = (currentStep / (totalSteps - 1)) * 100;
+  
+  return (
+    <div className="w-full h-2 bg-gray-200 fixed top-0 left-0 z-90">
+      <div 
+        className="h-full bg-orange-500 transition-all duration-300 ease-in-out"
+        style={{ width: `${progress}%` }}
+      />
+    </div>
+  );
+};
+
 const INITIAL_FORM_DATA = {
   //   addressToSell: "",
   cityToBuy: "",
@@ -194,7 +208,7 @@ const BuyMultipleFormWithMudal = () => {
           <div className="flex items-center gap-4 py-4 px-4">
             <div className="w-full">
               <Input
-                className="py-7"
+                className="py-7 placeholder:text-xl"
                 placeholder="Enter your city name"
                 value={formData.cityToBuy}
                 onChange={(e) => updateFormData("cityToBuy", e.target.value)}
@@ -218,8 +232,8 @@ const BuyMultipleFormWithMudal = () => {
     {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
-          <div className="flex justify-between items-center mb-4 px-20 mt-24">
-            <h2 className="font-semibold text-[#0F113A] text-2xl my-4">
+          <div className="flex justify-between items-center mb-4 px-7 mt-24">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Where are you looking to buy?
             </h2>
           </div>
@@ -297,7 +311,7 @@ const BuyMultipleFormWithMudal = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
             What price range are you looking to buy?
             </h2>
             <div className="flex-grow flex mt-10 items-center">
@@ -346,7 +360,7 @@ const BuyMultipleFormWithMudal = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Have you already hired a real estate Agent?
             </h2>
             <div className="flex-grow flex mt-10 items-center">
@@ -394,12 +408,12 @@ const BuyMultipleFormWithMudal = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className=" mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Are there any other details you’d like to share?
             </h2>
           </div>
           <textarea
-            className="w-full h-32 p-2 border rounded-md"
+            className="w-full h-32 p-2 border rounded-md placeholder:text-lg"
             placeholder="Enter any details about your real estate needs..."
             value={formData.additionalDetails}
             onChange={(e) =>
@@ -433,11 +447,11 @@ const BuyMultipleFormWithMudal = () => {
       content: (
         <div className="w-[815px] h-[738px] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
-            <h2 className="text-[#0F113A] text-3xl font-semibold">
+          <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Last step! Now just add a few contact details
             </h2>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-md text-gray-600">
             This is where RealEstateAgents.com and our agents will contact you
             to discuss your needs
           </p>
@@ -498,6 +512,18 @@ const BuyMultipleFormWithMudal = () => {
             binding arbitration and consent to receive electronic
             communications.
           </p>
+
+          {/* Footer Section for Buttons */}
+          <div className="flex justify-between mt-10">
+            <Button
+              className="flex items-center gap-1  text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
+              variant="secondary"
+              onClick={handleBack}
+            >
+              <LeftArrowIcon className="w-6 h-6" />
+              Back
+            </Button>
+          </div>
         </div>
       ),
     },
@@ -657,7 +683,7 @@ const BuyMultipleFormWithMudal = () => {
                 className="mx-auto w-64 my-4"
               />
               <div className="text-center">
-                <h2 className="text-2xl font-semibold text-[#0F113A] mb-4">
+                <h2 className="text-4xl font-semibold text-[#0F113A] mb-4">
                   Thank you for submitting!
                 </h2>
                 <p className="my-4 text-gray-700">
@@ -720,19 +746,25 @@ const BuyMultipleFormWithMudal = () => {
   ];
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center">
-      {currentStep === 0 ? (
-        <div className="max-w-[1087px] rounded-b-xl bg-white">
-          {steps[0].content}
+    <div className="bg-gray-100 flex flex-col items-center justify-center">
+          {currentStep === 0 ? (
+            <div className="max-w-[1087px] rounded-b-xl bg-white">
+              {steps[0].content}
+            </div>
+          ) : (
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+              <DialogContent className="max-w-[1087px] p-0">
+                {/* Progress bar moved inside DialogContent at the top */}
+                <div className="sticky top-0 z-10">
+                  <ProgressBar currentStep={currentStep} totalSteps={steps.length} />
+                </div>
+                <div className="relative">
+                  {steps[currentStep].content}
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
-      ) : (
-        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="max-w-[1087px] p-0">
-            {steps[currentStep].content}
-          </DialogContent>
-        </Dialog>
-      )}
-    </div>
   );
 };
 
