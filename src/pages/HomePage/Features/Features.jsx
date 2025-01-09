@@ -10,8 +10,8 @@ const Features = () => {
     <>
       <div className="max-w-[1350px] mx-auto px-[15px] py-12 sm:pt-20 sm:pb-[56px] lg:pt-[120px]">
         <div className="flex flex-col items-center justify-center gap-14">
-          <div className="grid grid-cols-3 h-[284px] gap-14">
-            <div className="feature-block px-4 py-8 flex flex-col items-center justify-center gap-6">
+          <div className="lg:grid lg:grid-cols-3 flex flex-wrap items-center justify-center lg:h-[284px] gap-14">
+            <div className=" min-w-[320px] feature-block px-4 py-8 flex flex-col items-center justify-center gap-6">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ const Features = () => {
                 </p>
               </div>
             </div>
-            <div className="feature-block px-4 py-8 flex flex-col items-center justify-center gap-6">
+            <div className=" min-w-[320px] feature-block px-4 py-8 flex flex-col items-center justify-center gap-6">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ const Features = () => {
                 </p>
               </div>
             </div>
-            <div className="feature-block px-4 py-8 flex flex-col items-center justify-center gap-6">
+            <div className=" min-w-[320px] feature-block px-4 py-8 flex flex-col items-center justify-center gap-6">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

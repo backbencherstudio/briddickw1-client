@@ -3,15 +3,15 @@ import React from "react";
 const Partner = () => {
   return (
     <>
-      <div className="max-w-[1350px] mx-auto px-[15px] pt-12 sm:pt-16 md:pt-20 lg:pt-[100px]">
+      <div id="partner-agents" className="max-w-[1350px] mx-auto px-[15px] pt-12 sm:pt-16 md:pt-20 lg:pt-[100px]">
         <div className="flex flex-col items-start gap-12">
           <div className="w-full">
-            <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%] text-center">
+            <h2 className="text-[#0D0D12] text-[28px] sm:text-[32px] lg:text-[48px] font-semibold leading-[130%] text-center">
               All of our partner agents are
             </h2>
           </div>
-          <div className="flex flex-wrap">
-            <div className="flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8 rounded-ss-[16px]">
+          <div className="flex flex-wrap justify-center">
+            <div className="w-full sm:w-auto flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8 lg:rounded-ss-[16px]">
               <div className="w-[72px] h-[72px] bg-[#E9EAF3] rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -41,11 +41,11 @@ const Partner = () => {
                   </defs>
                 </svg>
               </div>
-              <p className="max-w-[376px] text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
+              <p className="md:max-w-[300px] xl:max-w-[376px] text-[18px] sm:text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
                 Skilled agents who perform in the top 5% of their markets
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-6 bg-[#ffffff] p-8">
+            <div className="w-full sm:w-auto flex flex-col items-center justify-center gap-6 bg-[#ffffff] p-8">
               <div className="w-[72px] h-[72px] bg-[#23298B] rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -62,11 +62,11 @@ const Partner = () => {
                   />
                 </svg>
               </div>
-              <p className="max-w-[376px] text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
+              <p className="md:max-w-[300px] xl:max-w-[376px] text-[18px] sm:text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
                 Expert negotiators, getting you the best deal possible
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8 rounded-se-[16px]">
+            <div className="w-full sm:w-auto flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8 lg:rounded-se-[16px]">
               <div className="w-[72px] h-[72px] bg-[#E9EAF3] rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -90,11 +90,11 @@ const Partner = () => {
                   </defs>
                 </svg>
               </div>
-              <p className="max-w-[376px] text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
+              <p className="md:max-w-[300px] xl:max-w-[376px] text-[18px] sm:text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
                 Able to provide top service at competitive rates
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-6 bg-[#ffffff] p-8">
+            <div className="w-full sm:w-auto flex flex-col items-center justify-center gap-6 bg-[#ffffff] p-8">
               <div className="w-[72px] h-[72px] bg-[#23298B] rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -116,11 +116,11 @@ const Partner = () => {
                   </defs>
                 </svg>
               </div>
-              <p className="max-w-[376px] text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
+              <p className="md:max-w-[300px] xl:max-w-[376px] text-[18px] sm:text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
                 Licensed Agents with many years of experience
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8">
+            <div className="w-full sm:w-auto flex flex-col items-center justify-center gap-6 bg-[#E9EAF380] p-8">
               <div className="w-[72px] h-[72px] bg-[#E9EAF3] rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -143,11 +143,11 @@ const Partner = () => {
                   />
                 </svg>
               </div>
-              <p className="max-w-[376px] text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
+              <p className="md:max-w-[300px] xl:max-w-[376px] text-[18px] sm:text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
                 Highly reviewed across Google and other platforms
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-6 bg-[#ffffff] p-8">
+            <div className="w-full sm:w-auto flex flex-col items-center justify-center gap-6 bg-[#ffffff] p-8">
               <div className="w-[72px] h-[72px] bg-[#23298B] rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +164,7 @@ const Partner = () => {
                   />
                 </svg>
               </div>
-              <p className="max-w-[376px] text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
+              <p className="md:max-w-[300px] xl:max-w-[376px] text-[18px] sm:text-[20px] text-[#0F113A] font-semibold leading-[130%] text-center">
                 Local market experts with experience in your neighborhood
               </p>
             </div>

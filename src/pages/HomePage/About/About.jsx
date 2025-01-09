@@ -14,17 +14,17 @@ const About = () => {
 
   return (
     <>
-      <div className="bg-[#FAF9F5]">
+      <div id="jibrado" className="bg-[#FAF9F5]">
         <div className="max-w-[1350px] mx-auto px-[15px] py-12 sm:py-16 md:py-20 lg:py-[100px]">
-          <div className="flex justify-between items-stretch gap-8">
-            <div className="relative w-[47%] flex items-baseline justify-between gap-6 pb-10">
+          <div className="flex flex-col md:flex-row justify-between items-stretch gap-8">
+            <div className="relative w-full md:w-[47%] flex flex-col sm:flex-row items-center sm:items-baseline justify-between gap-6 pb-10">
               <div className=" overflow-hidden rounded-[16px]">
                 <img src={aboutOne} alt="" />
               </div>
               <div className=" overflow-hidden rounded-[16px] pb-5">
                 <img src={aboutTwo} alt="" />
               </div>
-              <div className="absolute bottom-0 right-[37px] flex flex-col items-center justify-center gap-6 rounded-[16px] border border-[#ECEFF3] bg-[#F8FAFB] p-8">
+              <div className="sm:absolute bottom-0 right-[37px] flex flex-col items-center justify-center gap-6 rounded-[16px] border border-[#ECEFF3] bg-[#F8FAFB] p-8">
                 <div className="flex items-center justify-start">
                   <img src={one} alt="" />
                   <img className=" ms-[-24px]" src={two} alt="" />
@@ -39,15 +39,15 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="w-[49%] flex flex-col items-start gap-4">
-              <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%]">
+            <div className="w-full md:w-[49%] flex flex-col items-start gap-4">
+              <h2 className="text-[#0D0D12] text-[28px] sm:text-[32px] lg:text-[48px] font-semibold leading-[130%]">
                 Why work with Jibrado?
               </h2>
               <div className="flex flex-col items-start gap-6">
                 {/* Tab Header */}
-                <div className="flex justify-center bg-[#E9EAF3] rounded-[12px] p-2 gap-4">
+                <div className="flex justify-center bg-[#E9EAF3] rounded-[12px] p-2 gap-1 sm:gap-4">
                   <button
-                    className={`px-6 py-3 text-[14px] font-normal flex justify-center items-center gap-[10px] rounded-[8px] ${
+                    className={`px-4 sm:px-6 py-3 text-[13px] sm:text-[14px] font-medium font-['Montserrat'] flex justify-center items-center gap-[10px] rounded-[8px] ${
                       activeTab === "selling"
                         ? "bg-[#23298B] text-white"
                         : "bg-transparent text-[#23298B]"
@@ -69,7 +69,7 @@ const About = () => {
                     </svg>
                   </button>
                   <button
-                    className={`px-6 py-3 text-[14px] font-normal flex justify-center items-center gap-[10px] rounded-[8px] ${
+                    className={`px-4 sm:px-6 py-3 text-[13px] sm:text-[14px] font-['Montserrat'] font-medium flex justify-center items-center gap-[10px] rounded-[8px] ${
                       activeTab === "buying"
                         ? "bg-[#23298B] text-white"
                         : "bg-transparent text-[#23298B]"
@@ -101,7 +101,7 @@ const About = () => {
                           <img src={peopleIcon} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-2">
-                          <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                          <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                             Compare reviews & services offered
                           </h3>
                           <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -116,7 +116,7 @@ const About = () => {
                           <img src={awardIcon} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-2">
-                          <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                          <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                             Work only with top agents
                           </h3>
                           <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -130,7 +130,7 @@ const About = () => {
                           <img src={sellIcon} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-2">
-                          <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                          <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                             Sell faster and for more
                           </h3>
                           <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -147,7 +147,7 @@ const About = () => {
                           <img src={awardIcon} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-2">
-                          <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                          <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                             Work only with top agents
                           </h3>
                           <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -161,7 +161,7 @@ const About = () => {
                           <img src={peopleIcon} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-2">
-                          <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                          <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                             Compare reviews & services offered
                           </h3>
                           <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -176,7 +176,7 @@ const About = () => {
                           <img src={sellIcon} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-2">
-                          <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                          <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                             Sell faster and for more
                           </h3>
                           <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">

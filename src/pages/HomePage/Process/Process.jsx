@@ -15,10 +15,10 @@ import Button from "../../../components/Button/Button";
 const Process = () => {
   return (
     <>
-      <div className="bg-[#FAF9F5]">
+      <div id="faq" className="bg-[#FAF9F5]">
         <div className="max-w-[1350px] mx-auto px-[15px] py-12 sm:py-16 md:py-20 lg:py-[100px]">
-          <div className="flex justify-between items-stretch gap-8">
-            <div className="relative w-[47%] flex items-center justify-between gap-6 pb-14">
+          <div className="flex flex-col lg:flex-row justify-between items-stretch gap-8">
+            <div className="relative w-full lg:w-[47%] flex flex-col sm:flex-row items-center lg:justify-between gap-6 pb-14">
               <div className="flex flex-col items-center justify-center gap-6">
                 <div className=" overflow-hidden rounded-[16px]">
                   <img src={imageOne} alt="" />
@@ -30,7 +30,7 @@ const Process = () => {
               <div className=" overflow-hidden rounded-[16px]">
                 <img src={imageThree} alt="" />
               </div>
-              <div className="absolute bottom-0 right-[120px] flex flex-col items-center justify-center gap-6 rounded-[16px] border border-[#ECEFF3] bg-[#F8FAFB] p-8">
+              <div className="sm:absolute bottom-0 left-[120px] flex flex-col items-center justify-center gap-6 rounded-[16px] border border-[#ECEFF3] bg-[#F8FAFB] p-8">
                 <div className="flex items-center justify-start">
                   <img src={one} alt="" />
                   <img className=" ms-[-24px]" src={two} alt="" />
@@ -45,8 +45,8 @@ const Process = () => {
                 </p>
               </div>
             </div>
-            <div className="w-[49%] flex flex-col items-start gap-6">
-              <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%]">
+            <div className="w-full lg:w-[49%] flex flex-col items-start gap-6">
+              <h2 className="text-[#0D0D12] text-[28px] sm:text-[32px] lg:text-[48px] font-semibold leading-[130%]">
                 How it works?
               </h2>
               <div className="flex flex-col items-stretch gap-6">
@@ -55,7 +55,7 @@ const Process = () => {
                     <img src={formIcon} alt="" />
                   </div>
                   <div className="flex flex-col items-start gap-2">
-                    <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                    <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                       Fill out the form
                     </h3>
                     <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -69,7 +69,7 @@ const Process = () => {
                     <img src={matchIcon} alt="" />
                   </div>
                   <div className="flex flex-col items-start gap-2">
-                    <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                    <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                       Get matched with a top agent
                     </h3>
                     <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">
@@ -83,7 +83,7 @@ const Process = () => {
                     <img src={handIcon} alt="" />
                   </div>
                   <div className="flex flex-col items-start gap-2">
-                    <h3 className="text-[#0F113A] text-[24px] font-semibold leading-[130%]">
+                    <h3 className="text-[#0F113A] text-[20px] lg:text-[24px] font-semibold leading-[130%]">
                       Buy or sell and save
                     </h3>
                     <p className="text-[#4A4C56] text-[16px] font-normal leading-[160%]">

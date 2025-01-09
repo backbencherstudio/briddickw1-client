@@ -10,7 +10,79 @@ const Header = () => {
         <div className="max-w-[1350px] px-[15px] mx-auto">
           <div className="navbar py-[14px]">
             <div className="navbar-start">
-              <div className="dropdown">
+              <a className="">
+                <img src={logo} alt="" />
+              </a>
+            </div>
+            <div className="navbar-center hidden lg:flex">
+              <ul className="menu menu-horizontal px-1">
+                <li>
+                  <NavLink
+                    to={"#multiple-proposals"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
+                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
+                    }
+                  >
+                    Multiple proposals
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"#jibrado"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
+                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
+                    }
+                  >
+                    Why Jibrado
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"#partner-agents"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
+                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
+                    }
+                  >
+                    Partner Agents
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"#reviews"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
+                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
+                    }
+                  >
+                    Reviews
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"#faq"}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
+                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
+                    }
+                  >
+                    FAQ
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+            <div className="navbar-end">
+              <button className="text-white text-[16px] font-['Plus Jakarta Sans'] bg-[#23298B] rounded-[8px] py-[10px] px-3 hidden sm:block">
+                Get Started
+              </button>
+              <div className="dropdown dropdown-end">
                 <div
                   tabIndex={0}
                   role="button"
@@ -18,7 +90,7 @@ const Header = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
+                    className="h-7 w-7"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -37,7 +109,7 @@ const Header = () => {
                 >
                   <li>
                     <NavLink
-                      to={"/review"}
+                      to={"#multiple-proposals"}
                       className={({ isActive }) =>
                         isActive
                           ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
@@ -49,7 +121,7 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink
-                      to={"/review"}
+                      to={"#jibrado"}
                       className={({ isActive }) =>
                         isActive
                           ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
@@ -61,7 +133,7 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink
-                      to={"/review"}
+                      to={"#partner-agents"}
                       className={({ isActive }) =>
                         isActive
                           ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
@@ -73,7 +145,7 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink
-                      to={"/review"}
+                      to={"#reviews"}
                       className={({ isActive }) =>
                         isActive
                           ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
@@ -85,7 +157,7 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink
-                      to={"/review"}
+                      to={"#faq"}
                       className={({ isActive }) =>
                         isActive
                           ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
@@ -97,78 +169,6 @@ const Header = () => {
                   </li>
                 </ul>
               </div>
-              <a className="">
-                <img src={logo} alt="" />
-              </a>
-            </div>
-            <div className="navbar-center hidden lg:flex">
-              <ul className="menu menu-horizontal px-1">
-                <li>
-                  <NavLink
-                    to={"/review"}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
-                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
-                    }
-                  >
-                    Multiple proposals
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/review"}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
-                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
-                    }
-                  >
-                    Why Jibrado
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/review"}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
-                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
-                    }
-                  >
-                    Partner Agents
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/review"}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
-                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
-                    }
-                  >
-                    Reviews
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/review"}
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-[#ffffff] text-[16px] font-semibold transition-colors duration-500"
-                        : "text-[16px] text-[#ffffff] font-normal transition-colors duration-500"
-                    }
-                  >
-                    FAQ
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-            <div className="navbar-end">
-              <button className="text-white text-[16px] font-['Plus Jakarta Sans'] bg-[#23298B] rounded-[8px] py-[10px] px-3">
-                Get Started
-              </button>
             </div>
           </div>
         </div>

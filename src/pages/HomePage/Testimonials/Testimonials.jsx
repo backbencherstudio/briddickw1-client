@@ -90,14 +90,14 @@ const Testimonials = () => {
 
   return (
     <>
-      <div className="py-12 sm:py-16 md:py-20 lg:py-[100px] overflow-hidden">
+      <div id="reviews" className="py-12 sm:py-16 md:py-20 lg:py-[100px] overflow-hidden">
         <div className="flex flex-col items-center justify-center gap-12">
           <div className="max-w-[1350px] mx-auto px-[15px]">
             <div className="flex flex-col items-center justify-center gap-6">
-              <h2 className="text-[#0D0D12] text-[48px] font-semibold leading-[130%] text-center max-w-[1024px] mx-auto">
+              <h2 className="text-[#0D0D12] text-[28px] sm:text-[32px] lg:text-[48px] font-semibold leading-[130%] text-center max-w-[1024px] mx-auto">
                 Read reviews from hundreds of happy homeowners that used Jibrado
               </h2>
-              <div className="bg-[#F8FAFB] p-8 rounded-2xl flex items-center justify-center gap-6">
+              <div className="bg-[#F8FAFB] p-8 rounded-2xl flex flex-col md:flex-row items-center justify-center gap-6">
                 <div className="flex items-center justify-start">
                   <img src={one} alt="Review 1" />
                   <img className="ms-[-24px]" src={two} alt="Review 2" />
@@ -138,13 +138,13 @@ const Testimonials = () => {
 
           <div className="embla w-full">
             <div
-              className="embla__viewport overflow-hidden py-4 ps-[15.6%]"
+              className="embla__viewport overflow-hidden py-4 px-[15px] sm:px-0 sm:ps-[15.6%]"
               ref={emblaRef}
             >
               <div className="embla__container flex">
                 {emblaSlides.map((slide, index) => (
                   <div
-                    className="embla__slide w-[26%] shrink-0 flex flex-col items-start justify-between  bg-white rounded-[20px] review-slide-shadow p-6 gap-4 me-6"
+                    className="embla__slide w-full sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[26%] shrink-0 flex flex-col items-start justify-between  bg-white rounded-[20px] review-slide-shadow p-6 gap-4 me-6"
                     key={index}
                   >
                     <div className="flex flex-col items-start justify-center gap-2">
@@ -283,7 +283,7 @@ const Testimonials = () => {
               </div>
             </div>
 
-            <div className="flex justify-start gap-5 mt-10 ps-[15.6%]">
+            <div className="flex justify-start gap-5 mt-10 ps-[15px] sm:ps-[15.6%]">
               <button
                 onClick={scrollPrev}
                 disabled={prevDisabled}

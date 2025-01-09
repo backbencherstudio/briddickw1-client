@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="bg-[#010320]">
         <div className="max-w-[1350px] px-[15px] mx-auto pt-10">
           <div className="w-full flex flex-col lg:flex-row items-center justify-between py-10 gap-10 lg:gap-2">
-            <div className="w-full lg:w-[17.27%] flex flex-col items-center lg:items-start justify-center gap-8">
+            <div className="w-full lg:w-[17.27%] flex flex-col  items-start justify-center gap-8">
               <Link>
                 <img src={lightLogo} alt="" />
               </Link>
@@ -93,7 +93,7 @@ const Footer = () => {
             </div>
             <div className="w-full lg:w-[68.46%] flex flex-wrap items-start justify-between gap-[60px]">
               <div className="flex flex-col items-start justify-start gap-8">
-                <h3 className="text-[#ffffff] text-[26px] font-bold  leading-[120%]">
+                <h3 className="text-[#ffffff] text-[20px] md:text-[22px] lg:text-[26px] font-bold  leading-[120%]">
                   Company
                 </h3>
                 <div className="flex flex-col items-start justify-start gap-5">
@@ -132,7 +132,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start gap-8">
-                <h3 className="text-[#ffffff] text-[26px] font-bold  leading-[120%]">
+                <h3 className="text-[#ffffff] text-[20px] md:text-[22px] lg:text-[26px] font-bold  leading-[120%]">
                   Resources
                 </h3>
                 <div className="flex flex-col items-start justify-start gap-5">
@@ -188,7 +188,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col items-start justify-start gap-8">
                 <div className="flex flex-col items-start justify-start gap-8">
-                  <h3 className="text-[#ffffff] text-[26px] font-bold  leading-[120%]">
+                  <h3 className="text-[#ffffff] text-[20px] md:text-[22px] lg:text-[26px] font-bold  leading-[120%]">
                     Partner Agents
                   </h3>
                   <div className="flex flex-col items-start justify-start gap-5">
@@ -203,7 +203,7 @@ const Footer = () => {
                   </div>
                 </div>
                 <div className="flex flex-col items-start justify-start gap-8">
-                  <h3 className="text-[#ffffff] text-[26px] font-bold  leading-[120%]">
+                  <h3 className="text-[#ffffff] text-[20px] md:text-[22px] lg:text-[26px] font-bold  leading-[120%]">
                     Resources
                   </h3>
                   <div className="flex flex-col items-start justify-start gap-5">
