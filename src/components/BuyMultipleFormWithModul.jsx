@@ -428,7 +428,7 @@ const handleModalClose = () => {
             </h2>
           </div>
           <textarea
-            className="w-full h-32 p-2 border rounded-md placeholder:text-lg"
+            className="w-full h-32 p-2 border rounded-md placeholder:text-lg bg-[#F8FAFB]"
             placeholder="Enter any details about your real estate needs..."
             value={formData.additionalDetails}
             onChange={(e) =>
@@ -636,7 +636,7 @@ const handleModalClose = () => {
                       key={index}
                       type="text"
                       maxLength="1"
-                      className="w-12 h-14 text-center border border-gray-300 rounded-md text-2xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                      className="w-12 h-14 text-center border border-gray-300 rounded-md text-2xl focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-[#F8FAFB]"
                       onChange={(e) => handleOtpInput(e, index)}
                       ref={(el) => (inputRefs.current[index] = el)}
                     />

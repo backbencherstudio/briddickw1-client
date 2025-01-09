@@ -83,7 +83,7 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   };
 
   return (
-    <div className="lg:w-[1087px] bg-white flex flex-col">
+    <div className="lg:w-[1087px] bg-white flex flex-col ">
       <div className="p-4">
         <div className="mb-4 flex items-center gap-4">
           <Input

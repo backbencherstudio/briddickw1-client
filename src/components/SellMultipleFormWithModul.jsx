@@ -80,6 +80,7 @@ const SellMultipleFormWithModul = () => {
     }
   };
 
+  // otp
   const handleSubmit = () => {
     const otpValues = inputRefs.current.map((input) => input.value).join("");
 
