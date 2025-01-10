@@ -27,8 +27,8 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 const INITIAL_FORM_DATA = {
-  //   addressToSell: "",
-  cityToBuy: "",
+    addressToSell: "",
+  // cityToBuy: "",
   priceRange: [500],
   coordinates: { lat: 39.8283, lng: -98.5795 }, // Center of USA
   hasAgent: false,
@@ -220,14 +220,14 @@ const handleModalClose = () => {
     // Step 2: Price Range
     {
       content: (
-        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col">
           <div className="lg:flex justify-between items-center mb-4 px-3 lg:px-7 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Roughly, what is your home worth?
             </h2>
           </div>
 
-          <div className="py-8 lg:w-[750px] mx-auto font-bold text-3xl flex-grow">
+          <div className="py-8 md:w-[750px] mx-auto font-bold text-3xl flex-grow">
             <div className="text-center mb-4">
               <div className="flex justify-center items-center">
                 <div
@@ -298,7 +298,7 @@ const handleModalClose = () => {
     // Step 3: Agent Question
     {
       content: (
-        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
+        <div className="md:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
           <div className="mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Have you already hired a real estate agent?
@@ -347,7 +347,7 @@ const handleModalClose = () => {
     // Step 4: Selling Question
     {
       content: (
-        <div className="lg:w-[815px] px-3 h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] px-3 h-[80vh] mx-auto flex flex-col">
           <div className="mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Are you also looking to sell a home?
@@ -395,7 +395,7 @@ const handleModalClose = () => {
     // Step 5: Additional Details
     {
       content: (
-        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
           <div className=" mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Are there any other details you’d like to share?
@@ -434,13 +434,13 @@ const handleModalClose = () => {
     // Step 6: Contact Details
     {
       content: (
-        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
           <div className="mb-4 mt-24">
-            <h2 className="font-semibold text-[#0F113A] text-2xl lg:text-[32px]">
+            <h2 className="font-semibold text-[#0F113A] text-2xl md:text-[32px]">
               Last step! Now just add a few contact details
             </h2>
           </div>
-          <p className="lg:text-lg text-gray-600">
+          <p className="md:text-lg text-gray-600">
             This is where RealEstateAgents.com and our agents will contact you
             to discuss your needs
           </p>
@@ -521,20 +521,20 @@ const handleModalClose = () => {
     // Step 7: Phone Verification
     {
       content: (
-        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-3">
-          <div className="mb-4 mt-5 lg:mt-24">
-            <h2 className="text-[#0F113A] text-xl lg:text-3xl font-semibold">
+        <div className="md:w-[815px] h-[80vh] mx-auto flex  flex-col px-3">
+          <div className="mb-4 mt-5 md:mt-24">
+            <h2 className="text-[#0F113A] text-xl md:text-3xl font-semibold">
               We’re preparing to connect you to at least 3 agents. Please verify
               the following information to get connected sooner:
             </h2>
           </div>
-          <div className="lg:w-1/2 flex space-x-3 mt-7 mb-5 lg:mb-20">
+          <div className="md:w-1/2 flex items-center space-x-3 mt-7 mb-16 md:mb-20">
             <div className="w-24">
-              <select className="w-full border rounded-md p-2 bg-[#ECEFF3]">
+              <select className="w-full border rounded-md p-2 py-3 bg-[#ECEFF3]">
                 <option>USA</option>
               </select>
             </div>
-            <div className="lg:w-full">
+            <div className="md:w-full flex items-center">
               <Input
                 placeholder="Cell Number"
                 type="tel"
@@ -550,7 +550,7 @@ const handleModalClose = () => {
             </div>
           </div>
 
-          <div className="flex justify-between lg:mx-20 mb-5 lg:my-10">
+          <div className="flex justify-between md:mx-20 mb-5 md:my-10">
             <Button
               className="flex items-center gap-1 text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
               variant="secondary"
@@ -567,7 +567,7 @@ const handleModalClose = () => {
               Text Confirmation Code
             </Button>
           </div>
-          <p className="text-gray-500 lg:text-lg mt-10 lg:mt-0">
+          <p className="text-gray-500 md:text-lg mt-10 md:mt-0">
             By clicking &quot;Text Confirmation Code&quot;, I am providing my
             esign and express written consent to allow ReferralExchange and our
             affiliated Participating Agents, or parties calling on their behalf,
@@ -584,7 +584,7 @@ const handleModalClose = () => {
     // Step 8: OTP Verification
     {
       content: (
-        <div className="lg:w-[815px] h-[738px] mx-auto flex flex-col px-4 lg:px-0">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-4 md:px-0">
           <div className=" mb-4 mt-24">
             <div className="w-full">
               <img
@@ -665,25 +665,25 @@ const handleModalClose = () => {
     // Step 8: Thank you
     {
       content: (
-        <div className="lg:w-[815px] lg:h-[738px] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col">
           <div className=" mb-4 mt-10">
             <div>
               <img
                 src={thankYou}
                 alt="Thank you image"
-                className="mx-auto w-36 lg:w-64 my-4"
+                className="mx-auto w-64 my-4"
               />
               <div className="text-center">
-                <h2 className="text-2xl lg:text-4xl font-semibold text-[#0F113A] mb-4">
+                <h2 className="text-2xl md:text-4xl font-semibold text-[#0F113A] mb-4">
                   Thank you for submitting!
                 </h2>
-                <p className="my-4 text-gray-700 text-sm lg:text-base">
+                <p className="my-4 text-gray-700 text-sm md:text-base">
                   Thank you for filling out our form and congratulations on
                   taking the next step of connecting with a top real estate
                   professional in your area. Agents will be contacting you soon.
                 </p>
 
-                <p className="my-4 text-gray-700 text-sm lg:text-base">
+                <p className="my-4 text-gray-700 text-sm md:text-base">
                   Please check your inbox in the next few minutes as we will
                   also send you a list of 3 local agents that meet the following
                   criteria:
@@ -692,34 +692,34 @@ const handleModalClose = () => {
             </div>
 
             {/* Centered Unordered List */}
-            <ul className="list-none mx-auto mt-6 lg:space-y-4 text-gray-700">
+            <ul className="list-none mx-auto mt-6 md:space-y-4 text-gray-700">
               <li className="flex items-center justify-center">
                 <span className="text-green-600 mr-3 text-xl">✔️</span>
-                <span className="text-base font-medium">
+                <span className="text-lg font-medium">
                   Sold over 100+ homes in your market
                 </span>
               </li>
               <li className="flex items-center justify-center">
                 <span className="text-green-600 mr-3 text-xl">✔️</span>
-                <span className="text-base font-medium">
+                <span className="text-lg font-medium">
                   Have over 50 5-Star reviews
                 </span>
               </li>
               <li className="flex items-center justify-center">
                 <span className="text-green-600 mr-3 text-xl">✔️</span>
-                <span className="text-base font-medium">
+                <span className="text-lg font-medium">
                   Specialize in buying or listing property
                 </span>
               </li>
               <li className="flex items-center justify-center">
                 <span className="text-green-600 mr-3 text-xl">✔️</span>
-                <span className="text-base font-medium">
+                <span className="text-lg font-medium">
                   Have been in the business for 5+ years
                 </span>
               </li>
             </ul>
 
-            <p className="text-gray-700 mt-8 px-3">
+            <p className="text-gray-700 mt-8 text-center text-lg px-2">
               If you need anything in the meantime, don&apos;t hesitate to reach
               out to{" "}
               <a

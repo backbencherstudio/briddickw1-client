@@ -9,30 +9,36 @@ const TabsComponent = () => {
   const tabs = [
     { id: 0, label: "Sell", component: <SellMultipleFormWithModul /> },
     { id: 1, label: "Buy", component: <BuyMultipleFormWithMudal /> },
-    { id: 2, label: "Sell & Buy", component: <SellAndBuyMultipleFormWithModul /> },
+    {
+      id: 2,
+      label: "Sell & Buy",
+      component: <SellAndBuyMultipleFormWithModul />,
+    },
   ];
 
   return (
-    <div className="  mx-auto rounded-lg">
+    <div className="  mx-auto rounded-2xl shadow-lg">
       {/* Tabs Navigation */}
-      <div className="    rounded-t-lg">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setTabIndex(tab.id)}
-            className={`pb-3 text-xl font-semibold bg-white px-8 py-5 ${
-              tabIndex === tab.id
-                ? "border-b-4 border-[#23298B] text-[#23298B]"
-                : "text-gray-500 hover:text-[#1f2249]"
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div className=" flex items-start justify-start rounded-t-2xl ">
+        <div className="flex  px-7 bg-white rounded-t-2xl">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setTabIndex(tab.id)}
+              className={`flex-1 pb-3 text-xl font-semibold px-8 py-5 text-center whitespace-nowrap ${
+                tabIndex === tab.id
+                  ? "border-b-4 border-[#23298B] text-[#23298B]"
+                  : "text-gray-500 hover:text-[#1f2249]"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Tab Content */}
-      <div className="bg-gray-100 rounded-b-lg ">{tabs[tabIndex].component}</div>
+      <div className="rounded-b-lg">{tabs[tabIndex].component}</div>
     </div>
   );
 };

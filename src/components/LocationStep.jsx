@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
+import TopArrowIcon from "../../public/icons/TopArrow";
 
 export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -35,7 +36,7 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   };
 
   const handleLocationSelect = (location) => {
-    updateFormData("cityToBuy", location.display_name);
+    updateFormData("addressToSell", location.display_name);
     updateFormData("coordinates", {
       lat: parseFloat(location.lat),
       lng: parseFloat(location.lon),
@@ -75,7 +76,7 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   }, [searchResults, focusedIndex]);
 
   const handleSubmit = () => {
-    if (!formData.cityToBuy.trim()) {
+    if (!formData.addressToSell.trim()) {
       setError("City name is required.");
       return;
     }
@@ -83,27 +84,31 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   };
 
   return (
-    <div className="lg:w-[1087px] bg-white flex flex-col ">
-      <div className="p-4">
+    <div
+      className="lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg"
+    >
+      <div className="p-4 md:w-[700px] lg:w-[987px]">
         <div className="mb-4 flex items-center gap-4">
           <Input
-            className={`py-7 placeholder:text-xl flex-grow ${
+            className={`py-7 lg:placeholder:text-xl  flex-grow border-none outline-none ${
               error ? "border-red-500" : ""
             }`}
-            placeholder="Enter your city name"
-            value={formData.cityToBuy}
+            placeholder="Enter the address you are selling"
+            value={formData.addressToSell}
             onChange={(e) => {
-              updateFormData("cityToBuy", e.target.value);
+              updateFormData("addressToSell", e.target.value);
               searchLocation(e.target.value);
               setError(""); // Clear error on input change
             }}
           />
+
           <Button
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 px-4 py-3"
             variant="primary"
             onClick={handleSubmit}
           >
-            Next
+            Compare Agents
+            <TopArrowIcon />
           </Button>
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
