@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import heroBanner from "../../../assets/image/hero-banner.png";
+import TabsComponent from "../../../components/TabsComponent";
 
 const Banner = () => {
   return (
@@ -14,6 +15,9 @@ const Banner = () => {
             Find Top Real Estate Agents. No Commitment.
           </h1>
           <p className="text-white text-[18px] font-normal leading-[160%] mb-8">We analyze hundreds of local agents and find the best to compete in your area.</p>
+
+          {/* form  */}
+          <TabsComponent />
         </div>
       </div>
     </>
