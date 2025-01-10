@@ -85,7 +85,7 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
 
   return (
     <div
-      className="lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg "
+      className=" lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg "
     >
       <div className="p-4 md:w-[700px] lg:w-[987px] rounded-2xl">
         <div className="mb-4 flex items-center gap-4 rounded-2xl">
@@ -103,7 +103,7 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
           />
 
           <Button
-            className="flex items-center gap-1 px-4 py-3"
+            className="flex items-center gap-1 md:px-4 md:py-3"
             variant="primary"
             onClick={handleSubmit}
           >

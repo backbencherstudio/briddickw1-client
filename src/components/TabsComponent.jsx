@@ -20,12 +20,12 @@ const TabsComponent = () => {
     <div className="  mx-auto rounded-2xl shadow-lg">
       {/* Tabs Navigation */}
       <div className=" flex items-start justify-start rounded-2xl ">
-        <div className="flex  px-7 bg-white rounded-t-2xl">
+        <div className="flex  md:px-7 bg-white rounded-t-2xl">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setTabIndex(tab.id)}
-              className={`flex-1 pb-3 text-xl font-semibold px-8 py-5 text-center whitespace-nowrap ${
+              className={`flex-1 pb-3 md:text-xl md:font-semibold px-6  md:px-8 py-5 text-center whitespace-nowrap ${
                 tabIndex === tab.id
                   ? "border-b-4 border-[#23298B] text-[#23298B]"
                   : "text-gray-500 hover:text-[#1f2249]"
