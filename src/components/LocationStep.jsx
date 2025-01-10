@@ -85,10 +85,10 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
 
   return (
     <div
-      className="lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg"
+      className="lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg "
     >
-      <div className="p-4 md:w-[700px] lg:w-[987px]">
-        <div className="mb-4 flex items-center gap-4">
+      <div className="p-4 md:w-[700px] lg:w-[987px] rounded-2xl">
+        <div className="mb-4 flex items-center gap-4 rounded-2xl">
           <Input
             className={`py-7 lg:placeholder:text-xl  flex-grow border-none outline-none ${
               error ? "border-red-500" : ""
@@ -119,7 +119,7 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
               <div
                 key={index}
                 className={`p-2 cursor-pointer ${
-                  index === focusedIndex ? "bg-gray-200" : "hover:bg-gray-100"
+                  index === focusedIndex ? "bg-gray-200" : "hover:bg-gray-100 rounded-2xl"
                 }`}
                 onClick={() => handleLocationSelect(result)}
               >
