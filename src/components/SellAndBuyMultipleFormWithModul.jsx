@@ -729,13 +729,13 @@ const SellAndBuyMultipleFormWithModul = () => {
               the following information to get connected sooner:
             </h2>
           </div>
-          <div className="md:w-1/2 flex items-center space-x-3 mt-7 mb-16 md:mb-20">
+          <div className="md:w-1/2 flex space-x-3 mt-7 mb-16 md:mb-20">
             <div className="w-24">
               <select className="w-full border rounded-md p-2 py-3 bg-[#ECEFF3]">
                 <option>USA</option>
               </select>
             </div>
-            <div className="md:w-full flex items-center">
+            <div className="md:w-full flex flex-col">
               <Input
                 placeholder="Cell Number"
                 type="tel"
@@ -938,9 +938,9 @@ const SellAndBuyMultipleFormWithModul = () => {
   ];
 
   return (
-    <div className="bg-gray-100 flex flex-col items-center justify-center">
+    <div className="bg-gray-100 flex flex-col items-center justify-center rounded-2xl rounded-tl-none">
       {currentStep === 0 ? (
-        <div className="max-w-[1087px] rounded-b-xl bg-white">
+        <div className="max-w-[1087px] rounded-b-xl bg-white rounded-2xl">
           {steps[0].content}
         </div>
       ) : (
@@ -952,7 +952,7 @@ const SellAndBuyMultipleFormWithModul = () => {
             }
           }}
         >
-          <DialogContent className="max-w-[1087px] p-0">
+          <DialogContent className="max-w-[1087px] p-0 ">
             <div className="sticky top-0 z-10">
               <ProgressBar
                 currentStep={currentStep}
