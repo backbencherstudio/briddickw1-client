@@ -11,6 +11,8 @@ import MinusIcon from "../../public/icons/MinusIcon";
 import PlusIcon from "../../public/icons/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
 import { LocationStep } from "./LocationStep";
+import sendOtpMessage from "../lib/sendMessage";
+import { sendEmail } from "../lib/sendEmail";
 
 // Progress bar component
 const ProgressBar = ({ currentStep, totalSteps }) => {
@@ -74,6 +76,9 @@ const SellMultipleFormWithModul = () => {
     }
   };
 
+
+
+
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep((prev) => prev - 1);
@@ -83,7 +88,7 @@ const SellMultipleFormWithModul = () => {
   // otp
   const handleSubmit = () => {
     const otpValues = inputRefs.current.map((input) => input.value).join("");
-
+    
     if (otpValues.length < 6) {
       toast.error("Please enter a valid 6-digit OTP.");
       return;
@@ -93,16 +98,30 @@ const SellMultipleFormWithModul = () => {
 
     setTimeout(() => {
       setIsLoading(false); // Hide the spinner after 3 seconds
-      setCurrentStep(steps.length - 1); // Navigate to thank you page
-      toast.success("OTP Verified Successfully!");
+       // Navigate to thank you page
     }, 3000);
 
+    const otp = localStorage.getItem("zi5jd")
+    if(otpValues !== otp){
+      toast.error("OTP is incorrect")
+      setIsLoading(false)
+      return
+    }
+    
     const finalFormData = {
       ...formData,
       otp: otpValues,
     };
+    console.log(finalFormData)
+
+    sendEmail(finalFormData)
+
+    toast.success("OTP Verified Successfully!");
+    setCurrentStep(steps.length - 1);
 
     console.log("Final form data:", finalFormData);
+
+    
 
     // // Successful submission feedback
     // toast.success("OTP Verified Successfully!");
@@ -179,21 +198,40 @@ const SellMultipleFormWithModul = () => {
   };
 
   // Phone number validation function
-  const validatePhoneNumber = () => {
+  const validatePhoneNumber = async() => {
     let isValid = true;
     const newErrors = { ...INITIAL_ERRORS };
 
-    const phonePattern = /^(\+1|1)?[-.●]?(\d{3})[-.●]?(\d{3})[-.●]?(\d{4})$/;
-    if (!formData.phoneNumber.trim()) {
+    const phonePattern = teue  // /^(\+1|1)?[-.●]?(\d{3})[-.●]?(\d{3})[-.●]?(\d{4})$/;
+    // if (!formData.phoneNumber.trim()) {
+    //   newErrors.phoneNumber = "Phone number is required";
+    //   isValid = false;
+    // } else if (!phonePattern.test(formData.phoneNumber)) {
+    //   newErrors.phoneNumber = "Please enter a valid USA phone number";
+    //   isValid = false;
+    // }
+
+    // setErrors(newErrors); // Set error messages to state
+    // return isValid;
+
+    if (phonePattern) {
       newErrors.phoneNumber = "Phone number is required";
       isValid = false;
-    } else if (!phonePattern.test(formData.phoneNumber)) {
+    }else if(!phonePattern){
       newErrors.phoneNumber = "Please enter a valid USA phone number";
       isValid = false;
     }
-
     setErrors(newErrors); // Set error messages to state
-    return isValid;
+    
+
+    const otp =  Math.floor(100000 + Math.random() * 900000).toString()
+    localStorage.setItem("zi5jd", otp)
+    const res = await sendOtpMessage(formData.phoneNumber, otp)
+    console.log(res)
+  
+    // return isValid;
+
+
   };
 
   const handlePhoneVerificationNext = () => {

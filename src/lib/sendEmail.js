@@ -1,36 +1,37 @@
 import axios from "axios";
 
-
 export const sendEmail = async ({
-  serviceId,
-  templateId,
-  publicKey,
+  serviceId = "service_lhibsmg",
+  templateId = "template_23wysyq",
+  publicKey = "l1f_f8hjyTWZJ7G6o",
   senderName,
   senderEmail,
   recipientEmails,
-  message,
-  additionalDetails,
+  details, // Assuming `details` object contains INITIAL_FORM_DATA fields
 }) => {
+  if (!recipientEmails || recipientEmails.length === 0) {
+    throw new Error("Recipient email list is empty.");
+  }
+
   const emailList = recipientEmails.map((email) => email.trim());
   const promises = emailList.map(async (recipientEmail) => {
     const data = {
-      service_id: 'service_lhibsmg',
-      template_id: 'template_23wysyq',
-      user_id: 'l1f_f8hjyTWZJ7G6o',
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
       template_params: {
         from_name: senderName,
         from_email: senderEmail,
-        to_email: recipientEmail,
+        to_email: "tqmhosain@gmail.com",
         first_name: details.firstName,
         last_name: details.lastName,
         city_to_buy: details.cityToBuy,
-        has_agent: details.hasAgent ? "Yes" : "No",
-        looking_to_sell: details.lookingToSell ? "Yes" : "No",
-        otp: details.otp,
+        has_agent: details.hasAgent,
+        looking_to_sell: details.lookingToSell,
         phone_number: details.phoneNumber,
-        price_range: details.priceRange.join(", "),
+        price_range: (details.priceRange || []).join(", "),
         additional_details: details.additionalDetails,
-        message: details.message,
+        message: details.message, // Additional message from the user
       },
     };
 

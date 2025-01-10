@@ -48,7 +48,7 @@ const sendOtpMessage = async (recipientPhone, message) => {
     "Body",
     `Your OTP Code: ${message}
     This code is valid for the next 10 minutes. For your security, do not share it with anyone.  
-    Thank you,  
+    Thank you 
     Jibrado`
   );
 
