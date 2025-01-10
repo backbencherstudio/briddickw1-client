@@ -528,13 +528,13 @@ const handleModalClose = () => {
               the following information to get connected sooner:
             </h2>
           </div>
-          <div className="md:w-1/2 flex items-center space-x-3 mt-7 mb-16 md:mb-20">
+          <div className="md:w-1/2 flex space-x-3 mt-7 mb-16 md:mb-20">
             <div className="w-24">
               <select className="w-full border rounded-md p-2 py-3 bg-[#ECEFF3]">
                 <option>USA</option>
               </select>
             </div>
-            <div className="md:w-full flex items-center">
+            <div className="md:w-full flex flex-col">
               <Input
                 placeholder="Cell Number"
                 type="tel"
