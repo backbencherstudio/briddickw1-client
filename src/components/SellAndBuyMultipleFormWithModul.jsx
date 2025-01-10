@@ -300,7 +300,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 2: Price Range
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col select-none">
           <div className="lg:flex justify-between items-center mb-4 px-3 lg:px-7 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px] my-4">
               Roughly, what is your home worth?
@@ -382,7 +382,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 3: Enter you Buy Location
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Where are you looking to buy?
@@ -465,7 +465,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 3: Price Range looking buy
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="lg:flex justify-between items-center mb-4 px-3 lg:px-7 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               What price range are you looking to buy?
@@ -549,7 +549,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 4: Agent Question
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Have you already hired a real estate agent?
@@ -598,7 +598,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 5: Additional Details
     {
       content: (
-        <div className="lg:w-[815px] px-3 h-[80vh] mx-auto flex flex-col">
+        <div className="lg:w-[815px] px-3 h-[80vh] mx-auto flex flex-col select-none">
           <div className=" mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Are there any other details you’d like to share?
@@ -637,7 +637,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 6: Contact Details
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="mb-4 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-2xl md:text-[32px]">
               Last step! Now just add a few contact details
@@ -722,7 +722,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     // Step 7: Phone Verification
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex  flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex  flex-col px-3 select-none">
           <div className="mb-4 mt-5 lg:mt-24">
             <h2 className="text-[#0F113A] text-xl md:text-3xl font-semibold">
               We’re preparing to connect you to at least 3 agents. Please verify

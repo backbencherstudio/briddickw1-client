@@ -19,7 +19,7 @@ const TabsComponent = () => {
   return (
     <div className="  mx-auto rounded-2xl shadow-lg">
       {/* Tabs Navigation */}
-      <div className=" flex items-start justify-start rounded-t-2xl ">
+      <div className=" flex items-start justify-start rounded-2xl ">
         <div className="flex  px-7 bg-white rounded-t-2xl">
           {tabs.map((tab) => (
             <button

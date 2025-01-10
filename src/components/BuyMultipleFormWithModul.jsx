@@ -221,7 +221,7 @@ const handleModalClose = () => {
     // Step 2: Price Range
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col select-none">
             <div className="lg:flex justify-between items-center mb-4 px-3 lg:px-7 mt-24">
             <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Where are you looking to buy?
@@ -299,7 +299,7 @@ const handleModalClose = () => {
     // Step 4: Agent Question
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
             What price range are you looking to buy?
@@ -348,7 +348,7 @@ const handleModalClose = () => {
     // Step 5: Selling Question
     {
       content: (
-        <div className="lg:w-[815px] px-3 h-[80vh] mx-auto flex flex-col">
+        <div className="lg:w-[815px] px-3 h-[80vh] mx-auto flex flex-col select-none">
           <div className="mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
             Have you already hired a real estate Agent?
@@ -396,7 +396,7 @@ const handleModalClose = () => {
     // Step 6: Additional Details
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className=" mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Are there any other details you’d like to share?
@@ -435,7 +435,7 @@ const handleModalClose = () => {
     // Step 7: Contact Details
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="mb-4 mt-24">
           <h2 className="font-semibold text-[#0F113A] text-2xl md:text-[32px]">
               Last step! Now just add a few contact details
@@ -520,7 +520,7 @@ const handleModalClose = () => {
     // Step 8: Phone Verification
     {
       content: (
-        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3">
+        <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col px-3 select-none">
           <div className="mb-4 mt-5 md:mt-24">
           <h2 className="text-[#0F113A] text-xl lg:text-3xl font-semibold">
               We’re preparing to connect you to at least 3 agents. Please verify
@@ -736,9 +736,9 @@ const handleModalClose = () => {
   ];
 
   return (
-    <div className="bg-gray-100 flex flex-col items-center justify-center">
+    <div className="bg-gray-100 flex flex-col items-center justify-center rounded-2xl">
       {currentStep === 0 ? (
-        <div className="max-w-[1087px] rounded-b-xl bg-white">
+        <div className="max-w-[1087px] rounded-b-xl bg-white rounded-2xl">
           {steps[0].content}
         </div>
       ) : (
@@ -750,7 +750,7 @@ const handleModalClose = () => {
             }
           }}
         >
-          <DialogContent className="max-w-[1087px] p-0">
+          <DialogContent className="max-w-[1087px] p-0 rounded-2xl">
             <div className="sticky top-0 z-10">
               <ProgressBar
                 currentStep={currentStep}
