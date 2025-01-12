@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -29,12 +29,12 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 };
 
 const INITIAL_FORM_DATA = {
-    addressToSell: "",
+  addressToSell: "",
   // cityToBuy: "",
   priceRange: [500],
-  coordinates: { lat: 39.8283, lng: -98.5795 }, // Center of USA
-  hasAgent: false,
-  lookingToSell: false,
+  // coordinates: { lat: 39.8283, lng: -98.5795 }, // Center of USA
+  hasAgent: null,
+  lookingToSell: null,
   additionalDetails: "",
   firstName: "",
   lastName: "",
@@ -47,6 +47,40 @@ const INITIAL_ERRORS = {
   lastName: "",
   email: "",
   phoneNumber: "",
+};
+
+// Define all possible values and their corresponding display formats
+const getPricePoints = () => {
+  const points = [];
+
+  // Under 100K
+  points.push({ value: 50, display: "Under $100K" });
+
+  // $100K to $950K in 50K increments
+  for (let i = 100; i < 1000; i += 50) {
+    points.push({
+      value: i,
+      display: `$${i}K - $${i + 50}K`,
+    });
+  }
+
+  // $1M to $2.25M in 250K increments
+  for (let i = 1000; i < 2750; i += 250) {
+    points.push({
+      value: i,
+      display: `$${(i / 1000).toFixed(2)}M - $${((i + 250) / 1000).toFixed(
+        2
+      )}M`,
+    });
+  }
+
+  // Special ranges
+  points.push({ value: 2750, display: "$2.75M - $3M" });
+  points.push({ value: 3000, display: "$3M - $4M" });
+  points.push({ value: 4000, display: "$4M - $5M" });
+  points.push({ value: 5000, display: "$5M+" });
+
+  return points;
 };
 
 const SellMultipleFormWithModul = () => {
@@ -76,9 +110,6 @@ const SellMultipleFormWithModul = () => {
     }
   };
 
-
-
-
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep((prev) => prev - 1);
@@ -88,7 +119,7 @@ const SellMultipleFormWithModul = () => {
   // otp
   const handleSubmit = () => {
     const otpValues = inputRefs.current.map((input) => input.value).join("");
-    
+
     if (otpValues.length < 6) {
       toast.error("Please enter a valid 6-digit OTP.");
       return;
@@ -98,30 +129,28 @@ const SellMultipleFormWithModul = () => {
 
     setTimeout(() => {
       setIsLoading(false); // Hide the spinner after 3 seconds
-       // Navigate to thank you page
+      // Navigate to thank you page
     }, 3000);
 
-    const otp = localStorage.getItem("zi5jd")
-    if(otpValues !== otp){
-      toast.error("OTP is incorrect")
-      setIsLoading(false)
-      return
+    const otp = localStorage.getItem("zi5jd");
+    if (otpValues !== otp) {
+      toast.error("OTP is incorrect");
+      setIsLoading(false);
+      return;
     }
-    
+
     const finalFormData = {
       ...formData,
       otp: otpValues,
     };
-    console.log(finalFormData)
+    console.log(finalFormData);
 
-    sendEmail(finalFormData)
+    sendEmail(finalFormData);
 
     toast.success("OTP Verified Successfully!");
     setCurrentStep(steps.length - 1);
 
     console.log("Final form data:", finalFormData);
-
-    
 
     // // Successful submission feedback
     // toast.success("OTP Verified Successfully!");
@@ -198,11 +227,11 @@ const SellMultipleFormWithModul = () => {
   };
 
   // Phone number validation function
-  const validatePhoneNumber = async() => {
+  const validatePhoneNumber = async () => {
     let isValid = true;
     const newErrors = { ...INITIAL_ERRORS };
 
-    const phonePattern = teue  // /^(\+1|1)?[-.●]?(\d{3})[-.●]?(\d{3})[-.●]?(\d{4})$/;
+    const phonePattern = teue; // /^(\+1|1)?[-.●]?(\d{3})[-.●]?(\d{3})[-.●]?(\d{4})$/;
     // if (!formData.phoneNumber.trim()) {
     //   newErrors.phoneNumber = "Phone number is required";
     //   isValid = false;
@@ -217,21 +246,18 @@ const SellMultipleFormWithModul = () => {
     if (phonePattern) {
       newErrors.phoneNumber = "Phone number is required";
       isValid = false;
-    }else if(!phonePattern){
+    } else if (!phonePattern) {
       newErrors.phoneNumber = "Please enter a valid USA phone number";
       isValid = false;
     }
     setErrors(newErrors); // Set error messages to state
-    
 
-    const otp =  Math.floor(100000 + Math.random() * 900000).toString()
-    localStorage.setItem("zi5jd", otp)
-    const res = await sendOtpMessage(formData.phoneNumber, otp)
-    console.log(res)
-  
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    localStorage.setItem("zi5jd", otp);
+    const res = await sendOtpMessage(formData.phoneNumber, otp);
+    console.log(res);
+
     // return isValid;
-
-
   };
 
   const handlePhoneVerificationNext = () => {
@@ -240,12 +266,49 @@ const SellMultipleFormWithModul = () => {
     }
   };
 
-// Handle modal close with page reload
-const handleModalClose = () => {
-  window.location.reload();
-};
+  // Handle modal close with page reload
+  const handleModalClose = () => {
+    window.location.reload();
+  };
+
+  const pricePoints = useMemo(() => getPricePoints(), []);
+
+  const findNearestPricePoint = (value) => {
+    return pricePoints.reduce((prev, curr) => {
+      return Math.abs(curr.value - value) < Math.abs(prev.value - value)
+        ? curr
+        : prev;
+    });
+  };
+
+  const formatPriceRange = (value) => {
+    const point = findNearestPricePoint(value);
+    return point.display;
+  };
+
+  const handleDecrease = () => {
+    const currentValue = formData.priceRange[0];
+    const currentIndex = pricePoints.findIndex((p) => p.value === currentValue);
+    if (currentIndex > 0) {
+      updateFormData("priceRange", [pricePoints[currentIndex - 1].value]);
+    }
+  };
+
+  const handleIncrease = () => {
+    const currentValue = formData.priceRange[0];
+    const currentIndex = pricePoints.findIndex((p) => p.value === currentValue);
+    if (currentIndex < pricePoints.length - 1) {
+      updateFormData("priceRange", [pricePoints[currentIndex + 1].value]);
+    }
+  };
+
+  const handleSliderChange = (value) => {
+    const nearestPoint = findNearestPricePoint(value[0]);
+    updateFormData("priceRange", [nearestPoint.value]);
+  };
 
   const steps = [
+    // step 1:
     {
       content: (
         <LocationStep
@@ -267,28 +330,19 @@ const handleModalClose = () => {
 
           <div className="py-8 md:w-[750px] mx-auto font-bold text-3xl flex-grow">
             <div className="text-center mb-4">
-              <div className="flex justify-center items-center">
+              <div className="flex justify-between mx-36 items-center">
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    const newPrice = Math.max(100, formData.priceRange[0] - 50); // Decrease price by 50k
-                    updateFormData("priceRange", [newPrice]);
-                  }}
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  onClick={handleDecrease}
                 >
                   <MinusIcon className="w-6 h-6 text-current" />
                 </div>
                 <p className="mx-6">
-                  ${formData.priceRange[0]}k - ${formData.priceRange[0] + 50}K
+                  {formatPriceRange(formData.priceRange[0])}
                 </p>
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    const newPrice = Math.min(
-                      5000,
-                      formData.priceRange[0] + 50
-                    ); // Increase price by 50k
-                    updateFormData("priceRange", [newPrice]);
-                  }}
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  onClick={handleIncrease}
                 >
                   <PlusIcon className="w-6 h-6 text-current" />
                 </div>
@@ -296,28 +350,26 @@ const handleModalClose = () => {
             </div>
 
             <Slider
-              defaultValue={[500]}
+              defaultValue={[50]}
               max={5000}
-              min={100}
-              step={50}
+              min={50}
+              step={1}
               value={formData.priceRange}
-              onValueChange={(value) => updateFormData("priceRange", value)}
+              onValueChange={handleSliderChange}
               className="bg-[#E9EAF3] my-6"
             />
             <div className="flex justify-between mt-2">
-              <span>$100k</span>
+              <span>$100K</span>
               <span>$5M+</span>
             </div>
           </div>
 
-          {/* Footer Section for Buttons */}
           <div className="flex justify-between items-center px-20 py-8 mt-auto">
             <Button
               className="flex items-center gap-1 text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
               variant="secondary"
               onClick={handleBack}
             >
-              <LeftArrowIcon className="w-6 h-6" />
               Back
             </Button>
             <Button
@@ -326,7 +378,6 @@ const handleModalClose = () => {
               onClick={handleNext}
             >
               Next
-              <RightArrowIcon className="w-6 h-6" />
             </Button>
           </div>
         </div>
@@ -344,13 +395,15 @@ const handleModalClose = () => {
             <div className="flex-grow flex mt-10 items-center">
               <div className="flex space-x-4">
                 <Button
-                  variant={formData.hasAgent ? "primary" : "secondary"}
+                  variant={formData.hasAgent === true ? "primary" : "secondary"}
                   onClick={() => updateFormData("hasAgent", true)}
                 >
                   Yes
                 </Button>
                 <Button
-                  variant={!formData.hasAgent ? "primary" : "secondary"}
+                  variant={
+                    formData.hasAgent === false ? "primary" : "secondary"
+                  }
                   onClick={() => updateFormData("hasAgent", false)}
                 >
                   No
@@ -366,16 +419,19 @@ const handleModalClose = () => {
               variant="secondary"
               onClick={handleBack}
             >
-              <LeftArrowIcon className="w-6 h-6" />
               Back
             </Button>
             <Button
-              className="flex items-center gap-1 bg-[#23298B] text-white shadow-sm hover:text-[#23298B] transition-all duration-300 ease-in-out"
+              className={`flex items-center gap-1 ${
+                formData.hasAgent !== null
+                  ? "bg-[#23298B] text-white"
+                  : "bg-gray-400 text-white cursor-not-allowed"
+              } shadow-sm hover:text-[#23298B] transition-all duration-300 ease-in-out`}
               variant="primary"
               onClick={handleNext}
+              disabled={formData.hasAgent === null}
             >
               Next
-              <RightArrowIcon className="w-6 h-6" />
             </Button>
           </div>
         </div>
@@ -393,13 +449,17 @@ const handleModalClose = () => {
             <div className="flex-grow flex mt-10 items-center">
               <div className="flex space-x-4">
                 <Button
-                  variant={formData.lookingToSell ? "primary" : "secondary"}
+                  variant={
+                    formData.lookingToSell === true ? "primary" : "secondary"
+                  }
                   onClick={() => updateFormData("lookingToSell", true)}
                 >
                   Yes
                 </Button>
                 <Button
-                  variant={!formData.lookingToSell ? "primary" : "secondary"}
+                  variant={
+                    formData.lookingToSell === false ? "primary" : "secondary"
+                  }
                   onClick={() => updateFormData("lookingToSell", false)}
                 >
                   No
@@ -410,20 +470,23 @@ const handleModalClose = () => {
           {/* Footer Section for Buttons */}
           <div className="flex justify-between px-20 py-8 mt-auto">
             <Button
-              className="flex items-center gap-1  text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
+              className="flex items-center gap-1 text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
               variant="secondary"
               onClick={handleBack}
             >
-              <LeftArrowIcon className="w-6 h-6" />
               Back
             </Button>
             <Button
-              className="flex items-center gap-1 bg-[#23298B] text-white shadow-sm hover:text-[#23298B] transition-all duration-300 ease-in-out"
+              className={`flex items-center gap-1 ${
+                formData.lookingToSell !== null
+                  ? "bg-[#23298B] text-white"
+                  : "bg-gray-400 text-white cursor-not-allowed"
+              } shadow-sm hover:text-[#23298B] transition-all duration-300 ease-in-out`}
               variant="primary"
               onClick={handleNext}
+              disabled={formData.lookingToSell === null}
             >
               Next
-              <RightArrowIcon className="w-6 h-6" />
             </Button>
           </div>
         </div>
@@ -781,8 +844,8 @@ const handleModalClose = () => {
           {steps[0].content}
         </div>
       ) : (
-        <Dialog 
-          open={isModalOpen} 
+        <Dialog
+          open={isModalOpen}
           onOpenChange={(open) => {
             if (!open) {
               handleModalClose();

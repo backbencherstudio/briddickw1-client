@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -32,7 +32,7 @@ const INITIAL_FORM_DATA = {
   homePriceRange: [500],
   cityToBuy: "",
   lookingPriceRange: [500],
-  hasAgent: false,
+  hasAgent: null,
   // lookingToSell: false,
   additionalDetails: "",
   firstName: "",
@@ -48,6 +48,40 @@ const INITIAL_ERRORS = {
   phoneNumber: "",
 };
 
+// Define all possible values and their corresponding display formats
+const getPricePoints = () => {
+  const points = [];
+
+  // Under 100K
+  points.push({ value: 50, display: "Under $100K" });
+
+  // $100K to $950K in 50K increments
+  for (let i = 100; i < 1000; i += 50) {
+    points.push({
+      value: i,
+      display: `$${i}K - $${i + 50}K`,
+    });
+  }
+
+  // $1M to $2.25M in 250K increments
+  for (let i = 1000; i < 2750; i += 250) {
+    points.push({
+      value: i,
+      display: `$${(i / 1000).toFixed(2)}M - $${((i + 250) / 1000).toFixed(
+        2
+      )}M`,
+    });
+  }
+
+  // Special ranges
+  points.push({ value: 2750, display: "$2.75M - $3M" });
+  points.push({ value: 3000, display: "$3M - $4M" });
+  points.push({ value: 4000, display: "$4M - $5M" });
+  points.push({ value: 5000, display: "$5M+" });
+
+  return points;
+};
+
 const SellAndBuyMultipleFormWithModul = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [currentStep, setCurrentStep] = useState(0);
@@ -55,12 +89,35 @@ const SellAndBuyMultipleFormWithModul = () => {
   const inputRefs = useRef([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [errors, setErrors] = useState(INITIAL_ERRORS); // State for error messages
+  const [errors, setErrors] = useState(INITIAL_ERRORS);
 
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [focusedIndex, setFocusedIndex] = useState(-1); // Track focused result index
-  const [error, setError] = useState(""); // For validation message
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [error, setError] = useState("");
+
+  const formatDisplayName = (rawDisplayName) => {
+    const parts = rawDisplayName.split(",").map((item) => item.trim());
+    const street = parts[0] && parts[1] ? `${parts[0]} ${parts[1]}` : parts[0];
+    let city = "";
+    for (let i = 2; i < parts.length; i++) {
+      const val = parts[i].toLowerCase();
+
+      if (
+        !val.includes("washington") &&
+        !val.includes("united states") &&
+        !val.includes("county") &&
+        !/^\d+$/.test(val)
+      ) {
+        city = parts[i];
+        break;
+      }
+    }
+
+    const state = "WA";
+
+    return `${street || ""}, ${city || ""}, ${state}`;
+  };
 
   const searchLocation = async (query) => {
     if (!query) {
@@ -72,14 +129,17 @@ const SellAndBuyMultipleFormWithModul = () => {
     setIsSearching(true);
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${query},USA&format=json&countrycodes=us`
+        `https://nominatim.openstreetmap.org/search?q=${query},Washington&format=json&countrycodes=us`
       );
       const data = await response.json();
+      console.log("data:", data);
+
+      // Filter to ensure we only keep US addresses (if you want)
       const usLocations = data.filter((result) =>
         result.display_name.includes("United States")
       );
       setSearchResults(usLocations);
-      setFocusedIndex(-1); // Reset focus index
+      setFocusedIndex(-1);
     } catch (error) {
       console.error("Error searching locations:", error);
       toast.error("Error searching locations. Please try again.");
@@ -88,11 +148,17 @@ const SellAndBuyMultipleFormWithModul = () => {
   };
 
   const handleLocationSelect = (location) => {
-    updateFormData("cityToBuy", location.display_name);
-    updateFormData("coordinates", {
-      lat: parseFloat(location.lat),
-      lng: parseFloat(location.lon),
-    });
+    // 2) Format the display_name
+    const formattedAddress = formatDisplayName(location.display_name);
+
+    // 3) Update form data with the shorter version
+    updateFormData("addressToSell", formattedAddress);
+    // updateFormData("coordinates", {
+    //   lat: parseFloat(location.lat),
+    //   lng: parseFloat(location.lon),
+    // });
+
+    // Close search results
     setSearchResults([]);
     setFocusedIndex(-1);
     setError(""); // Clear error if any
@@ -126,6 +192,14 @@ const SellAndBuyMultipleFormWithModul = () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [searchResults, focusedIndex]);
+
+  const handleSubmit = () => {
+    if (!formData.addressToSell.trim()) {
+      setError("City name is required.");
+      return;
+    }
+    handleNext();
+  };
 
   const validateCityInput = () => {
     if (!formData.cityToBuy.trim()) {
@@ -286,6 +360,69 @@ const SellAndBuyMultipleFormWithModul = () => {
     window.location.reload();
   };
 
+  const pricePoints = useMemo(() => getPricePoints(), []);
+
+  const findNearestPricePoint = (value) => {
+    return pricePoints.reduce((prev, curr) => {
+      return Math.abs(curr.value - value) < Math.abs(prev.value - value)
+        ? curr
+        : prev;
+    });
+  };
+
+  const formatPriceRange = (value) => {
+    const point = findNearestPricePoint(value);
+    return point.display;
+  };
+
+  //home price range
+  const handleDecrease = () => {
+    const currentValue = formData.homePriceRange[0];
+    const currentIndex = pricePoints.findIndex((p) => p.value === currentValue);
+    if (currentIndex > 0) {
+      updateFormData("homePriceRange", [pricePoints[currentIndex - 1].value]);
+    }
+  };
+
+  const handleIncrease = () => {
+    const currentValue = formData.homePriceRange[0];
+    const currentIndex = pricePoints.findIndex((p) => p.value === currentValue);
+    if (currentIndex < pricePoints.length - 1) {
+      updateFormData("homePriceRange", [pricePoints[currentIndex + 1].value]);
+    }
+  };
+
+  const handleSliderChange = (value) => {
+    const nearestPoint = findNearestPricePoint(value[0]);
+    updateFormData("homePriceRange", [nearestPoint.value]);
+  };
+
+  // looking price range
+  const lookingPriceHandleDecrease = () => {
+    const currentValue = formData.lookingPriceRange[0];
+    const currentIndex = pricePoints.findIndex((p) => p.value === currentValue);
+    if (currentIndex > 0) {
+      updateFormData("lookingPriceRange", [
+        pricePoints[currentIndex - 1].value,
+      ]);
+    }
+  };
+
+  const lookingPriceHandleIncrease = () => {
+    const currentValue = formData.lookingPriceRange[0];
+    const currentIndex = pricePoints.findIndex((p) => p.value === currentValue);
+    if (currentIndex < pricePoints.length - 1) {
+      updateFormData("lookingPriceRange", [
+        pricePoints[currentIndex + 1].value,
+      ]);
+    }
+  };
+
+  const lookingPriceHandleSliderChange = (value) => {
+    const nearestPoint = findNearestPricePoint(value[0]);
+    updateFormData("lookingPriceRange", [nearestPoint.value]);
+  };
+
   const steps = [
     // Step 1: Location Input (outside modal)
     {
@@ -302,39 +439,26 @@ const SellAndBuyMultipleFormWithModul = () => {
       content: (
         <div className="lg:w-[815px] h-[80vh] mx-auto flex flex-col select-none">
           <div className="lg:flex justify-between items-center mb-4 px-3 lg:px-7 mt-24">
-            <h2 className="font-semibold text-[#0F113A] text-[32px] my-4">
+            <h2 className="font-semibold text-[#0F113A] text-[32px]">
               Roughly, what is your home worth?
             </h2>
           </div>
 
           <div className="py-8 md:w-[750px] mx-auto font-bold text-3xl flex-grow">
             <div className="text-center mb-4">
-              <div className="flex justify-center items-center">
+              <div className="flex justify-between mx-36 items-center">
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    const newPrice = Math.max(
-                      100,
-                      formData.homePriceRange[0] - 50
-                    ); // Decrease price by 50k
-                    updateFormData("homePriceRange", [newPrice]);
-                  }}
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  onClick={handleDecrease}
                 >
                   <MinusIcon className="w-6 h-6 text-current" />
                 </div>
-                <p className="mx-6 text-[#13174C]">
-                  ${formData.homePriceRange[0]}k - $
-                  {formData.homePriceRange[0] + 50}K
+                <p className="mx-6">
+                  {formatPriceRange(formData.homePriceRange[0])}
                 </p>
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    const newPrice = Math.min(
-                      5000,
-                      formData.homePriceRange[0] + 50
-                    ); // Increase price by 50k
-                    updateFormData("homePriceRange", [newPrice]);
-                  }}
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  onClick={handleIncrease}
                 >
                   <PlusIcon className="w-6 h-6 text-current" />
                 </div>
@@ -342,28 +466,26 @@ const SellAndBuyMultipleFormWithModul = () => {
             </div>
 
             <Slider
-              defaultValue={[500]}
+              defaultValue={[50]}
               max={5000}
-              min={100}
-              step={50}
+              min={50}
+              step={1}
               value={formData.homePriceRange}
-              onValueChange={(value) => updateFormData("homePriceRange", value)}
+              onValueChange={handleSliderChange}
               className="bg-[#E9EAF3] my-6"
             />
             <div className="flex justify-between mt-2">
-              <span>$100k</span>
+              <span>$100K</span>
               <span>$5M+</span>
             </div>
           </div>
 
-          {/* Footer Section for Buttons */}
           <div className="flex justify-between items-center px-20 py-8 mt-auto">
             <Button
               className="flex items-center gap-1 text-[#23298B] shadow-sm hover:text-white transition-all duration-300 ease-in-out"
               variant="secondary"
               onClick={handleBack}
             >
-              <LeftArrowIcon className="w-6 h-6" />
               Back
             </Button>
             <Button
@@ -372,7 +494,6 @@ const SellAndBuyMultipleFormWithModul = () => {
               onClick={handleNext}
             >
               Next
-              <RightArrowIcon className="w-6 h-6" />
             </Button>
           </div>
         </div>
@@ -399,17 +520,16 @@ const SellAndBuyMultipleFormWithModul = () => {
                   <div className="">
                     <div className=" flex items-center gap-4">
                       <Input
-                        className={`py-7 border placeholder:text-xl flex-grow border-none placeholder:px-4 bg-[#F8FAFB]${
-                          error ? "border-red-500 bg-[#F8FAFB]" : ""
+                        className={`py-7 lg:placeholder:text-xl flex-grow border-none outline-none ${
+                          error ? "border-red-500" : ""
                         }`}
-                        placeholder="Enter your city name"
-                        value={formData.cityToBuy}
+                        placeholder="Enter the address you are selling"
+                        value={formData.addressToSell}
                         onChange={(e) => {
-                          updateFormData("cityToBuy", e.target.value);
+                          updateFormData("addressToSell", e.target.value);
                           searchLocation(e.target.value);
                           setError(""); // Clear error on input change
                         }}
-                        required
                       />
                     </div>
                     {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -418,19 +538,25 @@ const SellAndBuyMultipleFormWithModul = () => {
                     )}
                     {searchResults.length > 0 && (
                       <div className="mt-2 border rounded-md shadow-lg">
-                        {searchResults.map((result, index) => (
-                          <div
-                            key={index}
-                            className={`p-2 cursor-pointer ${
-                              index === focusedIndex
-                                ? "bg-gray-200"
-                                : "hover:bg-gray-100"
-                            }`}
-                            onClick={() => handleLocationSelect(result)}
-                          >
-                            {result.display_name}
-                          </div>
-                        ))}
+                        {searchResults.map((result, index) => {
+                          // Format each display_name for list rendering
+                          const formattedName = formatDisplayName(
+                            result.display_name
+                          );
+                          return (
+                            <div
+                              key={index}
+                              className={`p-2 cursor-pointer ${
+                                index === focusedIndex
+                                  ? "bg-gray-200"
+                                  : "hover:bg-gray-100 rounded-2xl"
+                              }`}
+                              onClick={() => handleLocationSelect(result)}
+                            >
+                              {formattedName}
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -474,32 +600,19 @@ const SellAndBuyMultipleFormWithModul = () => {
 
           <div className="py-8 md:w-[750px] mx-auto font-bold text-3xl flex-grow">
             <div className="text-center mb-4">
-              <div className="flex justify-center items-center">
+              <div className="flex justify-between mx-36 items-center">
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    const newPrice = Math.max(
-                      100,
-                      formData.lookingPriceRange[0] - 50
-                    ); // Decrease price by 50k
-                    updateFormData("lookingPriceRange", [newPrice]);
-                  }}
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  onClick={lookingPriceHandleDecrease}
                 >
                   <MinusIcon className="w-6 h-6 text-current" />
                 </div>
                 <p className="mx-6">
-                  ${formData.lookingPriceRange[0]}k - $
-                  {formData.lookingPriceRange[0] + 50}K
+                  {formatPriceRange(formData.lookingPriceRange[0])}
                 </p>
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer"
-                  onClick={() => {
-                    const newPrice = Math.min(
-                      5000,
-                      formData.lookingPriceRange[0] + 50
-                    ); // Increase price by 50k
-                    updateFormData("lookingPriceRange", [newPrice]);
-                  }}
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  onClick={lookingPriceHandleIncrease}
                 >
                   <PlusIcon className="w-6 h-6 text-current" />
                 </div>
@@ -507,18 +620,16 @@ const SellAndBuyMultipleFormWithModul = () => {
             </div>
 
             <Slider
-              defaultValue={[500]}
+              defaultValue={[50]}
               max={5000}
-              min={100}
-              step={50}
+              min={50}
+              step={1}
               value={formData.lookingPriceRange}
-              onValueChange={(value) =>
-                updateFormData("lookingPriceRange", value)
-              }
+              onValueChange={handleSliderChange}
               className="bg-[#E9EAF3] my-6"
             />
             <div className="flex justify-between mt-2">
-              <span>$100k</span>
+              <span>$100K</span>
               <span>$5M+</span>
             </div>
           </div>
@@ -557,13 +668,15 @@ const SellAndBuyMultipleFormWithModul = () => {
             <div className="flex-grow flex mt-10 items-center">
               <div className="flex space-x-4">
                 <Button
-                  variant={formData.hasAgent ? "primary" : "secondary"}
+                  variant={formData.hasAgent === true ? "primary" : "secondary"}
                   onClick={() => updateFormData("hasAgent", true)}
                 >
                   Yes
                 </Button>
                 <Button
-                  variant={!formData.hasAgent ? "primary" : "secondary"}
+                  variant={
+                    formData.hasAgent === false ? "primary" : "secondary"
+                  }
                   onClick={() => updateFormData("hasAgent", false)}
                 >
                   No
@@ -579,16 +692,19 @@ const SellAndBuyMultipleFormWithModul = () => {
               variant="secondary"
               onClick={handleBack}
             >
-              <LeftArrowIcon className="w-6 h-6" />
               Back
             </Button>
             <Button
-              className="flex items-center gap-1 bg-[#23298B] text-white shadow-sm hover:text-[#23298B] transition-all duration-300 ease-in-out"
+              className={`flex items-center gap-1 ${
+                formData.hasAgent !== null
+                  ? "bg-[#23298B] text-white"
+                  : "bg-gray-400 text-white cursor-not-allowed"
+              } shadow-sm hover:text-[#23298B] transition-all duration-300 ease-in-out`}
               variant="primary"
               onClick={handleNext}
+              disabled={formData.hasAgent === null}
             >
               Next
-              <RightArrowIcon className="w-6 h-6" />
             </Button>
           </div>
         </div>
