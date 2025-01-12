@@ -4,11 +4,34 @@ import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 import TopArrowIcon from "../../public/icons/TopArrow";
 
-export const LocationStep = ({ formData, updateFormData, handleNext }) => {
+export const LocationStep = ({ formData, updateFormData, handleNext, placeholderTitle }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1); // Track focused result index
   const [error, setError] = useState(""); // For validation message
+
+  const formatDisplayName = (rawDisplayName) => {
+    const parts = rawDisplayName.split(",").map((item) => item.trim());
+    const street = parts[0] && parts[1] ? `${parts[0]} ${parts[1]}` : parts[0];
+
+    let city = "";
+    for (let i = 2; i < parts.length; i++) {
+      const val = parts[i].toLowerCase();
+  
+      if (
+        !val.includes("washington") &&
+        !val.includes("united states") &&
+        !val.includes("county") &&
+        !/^\d+$/.test(val) 
+      ) {
+        city = parts[i];
+        break;
+      }
+    }
+
+    const state = "WA";
+    return `${street || ""}, ${city || ""}, ${state}`;
+  };
 
   const searchLocation = async (query) => {
     if (!query) {
@@ -20,14 +43,18 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
     setIsSearching(true);
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${query},USA&format=json&countrycodes=us`
+        `https://nominatim.openstreetmap.org/search?q=${query},Washington&format=json&countrycodes=us`
       );
       const data = await response.json();
+      console.log("data:", data);
+      
+
+      // Filter to ensure we only keep US addresses (if you want)
       const usLocations = data.filter((result) =>
         result.display_name.includes("United States")
       );
       setSearchResults(usLocations);
-      setFocusedIndex(-1); // Reset focus index
+      setFocusedIndex(-1);
     } catch (error) {
       console.error("Error searching locations:", error);
       toast.error("Error searching locations. Please try again.");
@@ -36,11 +63,9 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   };
 
   const handleLocationSelect = (location) => {
-    updateFormData("addressToSell", location.display_name);
-    updateFormData("coordinates", {
-      lat: parseFloat(location.lat),
-      lng: parseFloat(location.lon),
-    });
+    const formattedAddress = formatDisplayName(location.display_name);
+
+    updateFormData("addressToSell", formattedAddress);
     setSearchResults([]);
     setFocusedIndex(-1);
     setError(""); // Clear error if any
@@ -84,21 +109,19 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   };
 
   return (
-    <div
-      className=" lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg "
-    >
+    <div className="lg:w-[987px] flex flex-col rounded-2xl rounded-tl-none shadow-lg">
       <div className="p-4 md:w-[700px] lg:w-[987px] rounded-2xl">
         <div className="mb-4 flex items-center gap-4 rounded-2xl">
           <Input
-            className={`py-7 lg:placeholder:text-xl  flex-grow border-none outline-none ${
+            className={`py-7 lg:placeholder:text-xl flex-grow border-none outline-none ${
               error ? "border-red-500" : ""
             }`}
-            placeholder="Enter the address you are selling"
+            placeholder={placeholderTitle}
             value={formData.addressToSell}
             onChange={(e) => {
               updateFormData("addressToSell", e.target.value);
               searchLocation(e.target.value);
-              setError(""); // Clear error on input change
+              setError("");
             }}
           />
 
@@ -113,19 +136,26 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
         {isSearching && <div className="mt-2 text-gray-600">Searching...</div>}
+
         {searchResults.length > 0 && (
           <div className="mt-2 border rounded-md shadow-lg">
-            {searchResults.map((result, index) => (
-              <div
-                key={index}
-                className={`p-2 cursor-pointer ${
-                  index === focusedIndex ? "bg-gray-200" : "hover:bg-gray-100 rounded-2xl"
-                }`}
-                onClick={() => handleLocationSelect(result)}
-              >
-                {result.display_name}
-              </div>
-            ))}
+            {searchResults.map((result, index) => {
+              // Format each display_name for list rendering
+              const formattedName = formatDisplayName(result.display_name);
+              return (
+                <div
+                  key={index}
+                  className={`p-2 cursor-pointer ${
+                    index === focusedIndex
+                      ? "bg-gray-200"
+                      : "hover:bg-gray-100 rounded-2xl"
+                  }`}
+                  onClick={() => handleLocationSelect(result)}
+                >
+                  {formattedName}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
