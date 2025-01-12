@@ -4,55 +4,32 @@ import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 import TopArrowIcon from "../../public/icons/TopArrow";
 
-export const LocationStep = ({ formData, updateFormData, handleNext }) => {
+export const LocationStep = ({ formData, updateFormData, handleNext, placeholderTitle }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1); // Track focused result index
   const [error, setError] = useState(""); // For validation message
 
-  // 1) Helper function to reshape the display_name
   const formatDisplayName = (rawDisplayName) => {
-    // Example raw display_name:
-    // "2239, West Birch Street, Forest Ridge, Bellingham, Whatcom County, Washington, 98229, United States"
-
-    // Split on commas & trim extra whitespace
     const parts = rawDisplayName.split(",").map((item) => item.trim());
-    // parts[0] = "2239"
-    // parts[1] = "West Birch Street"
-    // parts[2] = "Forest Ridge"
-    // parts[3] = "Bellingham"
-    // parts[4] = "Whatcom County"
-    // parts[5] = "Washington"
-    // parts[6] = "98229"
-    // parts[7] = "United States"
-
-    // Combine first two as "2239 West Birch Street"
     const street = parts[0] && parts[1] ? `${parts[0]} ${parts[1]}` : parts[0];
 
-    // Find next piece that might be the city (often index 3 or 4, but it can vary).
-    // For simplicity, let's pick the first part that looks nothing like "Washington", "United States", or any numeric zip.
-    // Alternatively, if you know for sure the city is always parts[3], just use parts[3].
     let city = "";
     for (let i = 2; i < parts.length; i++) {
       const val = parts[i].toLowerCase();
-      // Skip if it's "washington", "united states", numeric (zip), or "county" text
+  
       if (
         !val.includes("washington") &&
         !val.includes("united states") &&
         !val.includes("county") &&
-        !/^\d+$/.test(val) // skip pure numbers (e.g. zip code)
+        !/^\d+$/.test(val) 
       ) {
         city = parts[i];
         break;
       }
     }
 
-    // Force state to "WA" since everything is in Washington
     const state = "WA";
-
-    // Final format: "2239 West Birch Street, Bellingham, WA"
-    // If city is missing, it’ll just be "2239 West Birch Street, , WA".
-    // So you may want to handle that case if necessary.
     return `${street || ""}, ${city || ""}, ${state}`;
   };
 
@@ -86,17 +63,9 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
   };
 
   const handleLocationSelect = (location) => {
-    // 2) Format the display_name
     const formattedAddress = formatDisplayName(location.display_name);
 
-    // 3) Update form data with the shorter version
     updateFormData("addressToSell", formattedAddress);
-    // updateFormData("coordinates", {
-    //   lat: parseFloat(location.lat),
-    //   lng: parseFloat(location.lon),
-    // });
-
-    // Close search results
     setSearchResults([]);
     setFocusedIndex(-1);
     setError(""); // Clear error if any
@@ -147,12 +116,12 @@ export const LocationStep = ({ formData, updateFormData, handleNext }) => {
             className={`py-7 lg:placeholder:text-xl flex-grow border-none outline-none ${
               error ? "border-red-500" : ""
             }`}
-            placeholder="Enter the address you are selling"
+            placeholder={placeholderTitle}
             value={formData.addressToSell}
             onChange={(e) => {
               updateFormData("addressToSell", e.target.value);
               searchLocation(e.target.value);
-              setError(""); // Clear error on input change
+              setError("");
             }}
           />
 

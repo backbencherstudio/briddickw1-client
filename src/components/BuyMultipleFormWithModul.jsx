@@ -285,6 +285,7 @@ const BuyMultipleFormWithMudal = () => {
           formData={formData}
           updateFormData={updateFormData}
           handleNext={handleNext}
+          placeholderTitle='Enter your city name'
         />
       ),
     },

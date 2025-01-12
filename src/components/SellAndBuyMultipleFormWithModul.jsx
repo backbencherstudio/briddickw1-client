@@ -93,21 +93,23 @@ const SellAndBuyMultipleFormWithModul = () => {
 
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [focusedIndex, setFocusedIndex] = useState(-1);
-  const [error, setError] = useState("");
+  const [focusedIndex, setFocusedIndex] = useState(-1); // Track focused result index
+  const [error, setError] = useState(""); // For validation message
 
+  // 1) Helper function to reshape the display_name
   const formatDisplayName = (rawDisplayName) => {
     const parts = rawDisplayName.split(",").map((item) => item.trim());
     const street = parts[0] && parts[1] ? `${parts[0]} ${parts[1]}` : parts[0];
+
     let city = "";
     for (let i = 2; i < parts.length; i++) {
       const val = parts[i].toLowerCase();
-
+  
       if (
         !val.includes("washington") &&
         !val.includes("united states") &&
         !val.includes("county") &&
-        !/^\d+$/.test(val)
+        !/^\d+$/.test(val) 
       ) {
         city = parts[i];
         break;
@@ -115,7 +117,6 @@ const SellAndBuyMultipleFormWithModul = () => {
     }
 
     const state = "WA";
-
     return `${street || ""}, ${city || ""}, ${state}`;
   };
 
@@ -133,6 +134,7 @@ const SellAndBuyMultipleFormWithModul = () => {
       );
       const data = await response.json();
       console.log("data:", data);
+      
 
       // Filter to ensure we only keep US addresses (if you want)
       const usLocations = data.filter((result) =>
@@ -152,7 +154,7 @@ const SellAndBuyMultipleFormWithModul = () => {
     const formattedAddress = formatDisplayName(location.display_name);
 
     // 3) Update form data with the shorter version
-    updateFormData("addressToSell", formattedAddress);
+    updateFormData("cityToBuy", formattedAddress);
     // updateFormData("coordinates", {
     //   lat: parseFloat(location.lat),
     //   lng: parseFloat(location.lon),
@@ -193,13 +195,13 @@ const SellAndBuyMultipleFormWithModul = () => {
     };
   }, [searchResults, focusedIndex]);
 
-  const handleSubmit = () => {
-    if (!formData.addressToSell.trim()) {
-      setError("City name is required.");
-      return;
-    }
-    handleNext();
-  };
+  // const handleSubmit = () => {
+  //   if (!formData.addressToSell.trim()) {
+  //     setError("City name is required.");
+  //     return;
+  //   }
+  //   handleNext();
+  // };
 
   const validateCityInput = () => {
     if (!formData.cityToBuy.trim()) {
@@ -431,6 +433,7 @@ const SellAndBuyMultipleFormWithModul = () => {
           formData={formData}
           updateFormData={updateFormData}
           handleNext={handleNext}
+          placeholderTitle='Enter the address you are selling'
         />
       ),
     },
@@ -524,9 +527,9 @@ const SellAndBuyMultipleFormWithModul = () => {
                           error ? "border-red-500" : ""
                         }`}
                         placeholder="Enter the address you are selling"
-                        value={formData.addressToSell}
+                        value={formData.cityToBuy}
                         onChange={(e) => {
-                          updateFormData("addressToSell", e.target.value);
+                          updateFormData("cityToBuy", e.target.value);
                           searchLocation(e.target.value);
                           setError(""); // Clear error on input change
                         }}
@@ -605,7 +608,7 @@ const SellAndBuyMultipleFormWithModul = () => {
                   className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
                   onClick={lookingPriceHandleDecrease}
                 >
-                  <MinusIcon className="w-6 h-6 text-current" />
+                  <MinusIcon className="w-7 h-7 text-current" />
                 </div>
                 <p className="mx-6">
                   {formatPriceRange(formData.lookingPriceRange[0])}
@@ -614,7 +617,7 @@ const SellAndBuyMultipleFormWithModul = () => {
                   className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
                   onClick={lookingPriceHandleIncrease}
                 >
-                  <PlusIcon className="w-6 h-6 text-current" />
+                  <PlusIcon className="w-7 h-7 text-current" />
                 </div>
               </div>
             </div>
@@ -625,7 +628,7 @@ const SellAndBuyMultipleFormWithModul = () => {
               min={50}
               step={1}
               value={formData.lookingPriceRange}
-              onValueChange={handleSliderChange}
+              onValueChange={lookingPriceHandleSliderChange}
               className="bg-[#E9EAF3] my-6"
             />
             <div className="flex justify-between mt-2">
