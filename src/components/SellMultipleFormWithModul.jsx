@@ -271,19 +271,25 @@ const SellMultipleFormWithModul = () => {
     window.location.reload();
   };
 
+  //slider price range
   const pricePoints = useMemo(() => getPricePoints(), []);
 
-  const findNearestPricePoint = (value) => {
-    return pricePoints.reduce((prev, curr) => {
-      return Math.abs(curr.value - value) < Math.abs(prev.value - value)
-        ? curr
-        : prev;
-    });
-  };
+  // const findNearestPricePoint = (value) => {
+  //   return pricePoints.reduce((prev, curr) => {
+  //     return Math.abs(curr.value - value) < Math.abs(prev.value - value)
+  //       ? curr
+  //       : prev;
+  //   });
+  // };
+
+  // const formatPriceRange = (value) => {
+  //   const point = findNearestPricePoint(value);
+  //   return point.display;
+  // };
 
   const formatPriceRange = (value) => {
-    const point = findNearestPricePoint(value);
-    return point.display;
+    const pointIndex = pricePoints.findIndex(p => p.value === value);
+    return pricePoints[pointIndex].display;
   };
 
   const handleDecrease = () => {
@@ -302,10 +308,10 @@ const SellMultipleFormWithModul = () => {
     }
   };
 
-  const handleSliderChange = (value) => {
-    const nearestPoint = findNearestPricePoint(value[0]);
-    updateFormData("priceRange", [nearestPoint.value]);
-  };
+  // const handleSliderChange = (value) => {
+  //   const nearestPoint = findNearestPricePoint(value[0]);
+  //   updateFormData("priceRange", [nearestPoint.value]);
+  // };
 
   const steps = [
     // step 1:
@@ -315,7 +321,7 @@ const SellMultipleFormWithModul = () => {
           formData={formData}
           updateFormData={updateFormData}
           handleNext={handleNext}
-          placeholderTitle='Enter the address you are selling'
+          placeholderTitle="Enter the address you are selling"
         />
       ),
     },
@@ -351,12 +357,18 @@ const SellMultipleFormWithModul = () => {
             </div>
 
             <Slider
-              defaultValue={[50]}
-              max={5000}
-              min={50}
+              defaultValue={[0]} 
+              max={pricePoints.length - 1} 
+              min={0} 
               step={1}
-              value={formData.priceRange}
-              onValueChange={handleSliderChange}
+              value={[
+                pricePoints.findIndex(
+                  (p) => p.value === formData.priceRange[0]
+                ),
+              ]} 
+              onValueChange={(value) => {
+                updateFormData("priceRange", [pricePoints[value[0]].value]);
+              }}
               className="bg-[#E9EAF3] my-6"
             />
             <div className="flex justify-between mt-2">
@@ -743,14 +755,12 @@ const SellMultipleFormWithModul = () => {
                 </Button>
               )}
             </div>
+            
 
             <p className="text-sm mt-8 text-gray-500 text-center">
               Didn’t receive a code?{" "}
-              <span className="text-indigo-600 font-semibold cursor-pointer hover:underline">
-                Try another method
-              </span>{" "}
-              or{" "}
-              <span className="text-indigo-600 font-semibold cursor-pointer hover:underline">
+              
+              <span className="text-indigo-600 font-semibold cursor-pointer hover:underline" onClick={handleBack}>
                 create a new request
               </span>
             </p>
