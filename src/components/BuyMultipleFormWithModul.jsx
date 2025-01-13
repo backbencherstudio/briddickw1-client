@@ -282,7 +282,7 @@ const BuyMultipleFormWithMudal = () => {
           formData={formData}
           updateFormData={updateFormData}
           handleNext={handleNext}
-          placeholderTitle='Enter your city name'
+          placeholderTitle='Enter the address you are buying'
         />
       ),
     },
@@ -300,19 +300,19 @@ const BuyMultipleFormWithMudal = () => {
             <div className="text-center mb-4">
               <div className="flex justify-between mx-36 items-center">
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200 h-10 w-10"
                   onClick={handleDecrease}
                 >
-                  <MinusIcon className="w-6 h-6 text-current" />
+                  <MinusIcon className="w-5 h-5 text-current" />
                 </div>
                 <p className="mx-6">
                   {formatPriceRange(formData.priceRange[0])}
                 </p>
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200 h-10 w-10"
                   onClick={handleIncrease}
                 >
-                  <PlusIcon className="w-6 h-6 text-current" />
+                  <PlusIcon className="w-5 h-5 text-current" />
                 </div>
               </div>
             </div>

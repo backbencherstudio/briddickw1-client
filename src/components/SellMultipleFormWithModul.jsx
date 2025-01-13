@@ -288,7 +288,7 @@ const SellMultipleFormWithModul = () => {
   // };
 
   const formatPriceRange = (value) => {
-    const pointIndex = pricePoints.findIndex(p => p.value === value);
+    const pointIndex = pricePoints.findIndex((p) => p.value === value);
     return pricePoints[pointIndex].display;
   };
 
@@ -339,33 +339,34 @@ const SellMultipleFormWithModul = () => {
             <div className="text-center mb-4">
               <div className="flex justify-between mx-36 items-center">
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200 h-10 w-10"
                   onClick={handleDecrease}
                 >
-                  <MinusIcon className="w-6 h-6 text-current" />
+                  <MinusIcon className="w-5 h-5 text-current" />
                 </div>
                 <p className="mx-6">
                   {formatPriceRange(formData.priceRange[0])}
                 </p>
                 <div
-                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200"
+                  className="border text-3xl p-2 inline-flex items-center justify-center cursor-pointer hover:border hover:border-[#0F113A] ease-linear duration-200 h-10 w-10"
+                  
                   onClick={handleIncrease}
                 >
-                  <PlusIcon className="w-6 h-6 text-current" />
+                  <PlusIcon className="w-5 h-5 text-current" />
                 </div>
               </div>
             </div>
 
             <Slider
-              defaultValue={[0]} 
-              max={pricePoints.length - 1} 
-              min={0} 
+              defaultValue={[0]}
+              max={pricePoints.length - 1}
+              min={0}
               step={1}
               value={[
                 pricePoints.findIndex(
                   (p) => p.value === formData.priceRange[0]
                 ),
-              ]} 
+              ]}
               onValueChange={(value) => {
                 updateFormData("priceRange", [pricePoints[value[0]].value]);
               }}
@@ -755,12 +756,13 @@ const SellMultipleFormWithModul = () => {
                 </Button>
               )}
             </div>
-            
 
             <p className="text-sm mt-8 text-gray-500 text-center">
               Didn’t receive a code?{" "}
-              
-              <span className="text-indigo-600 font-semibold cursor-pointer hover:underline" onClick={handleBack}>
+              <span
+                className="text-indigo-600 font-semibold cursor-pointer hover:underline"
+                onClick={handleBack}
+              >
                 create a new request
               </span>
             </p>
